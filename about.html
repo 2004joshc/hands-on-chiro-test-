@@ -1,0 +1,1542 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>About Dr. Seung Koo Cho — Hands On Chiropractic</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400;1,600&family=Roboto+Condensed:wght@300;400;700&family=PT+Sans:wght@400;700&display=swap" rel="stylesheet" />
+  <style>
+    /* ── CSS Variables ─────────────────────────────────────── */
+    :root {
+      --brand:       #005B98;
+      --brand-dark:  #003f6e;
+      --accent:      #07B0F5;
+      --text:        #343434;
+      --text-light:  #666;
+      --white:       #FFFFFF;
+      --surface:     #F6F6F6;
+      --border:      rgba(0,91,152,0.1);
+      --font-ui:     'Roboto Condensed', sans-serif;
+      --font-display:'Playfair Display', serif;
+      --font-body:   'PT Sans', sans-serif;
+      --pad:         28px;
+      --nav-h:       75px;
+      --radius:      10px;
+      --shadow-sm:   0 1px 3px rgba(0,91,152,0.04), 0 4px 12px rgba(0,91,152,0.08);
+      --shadow-md:   0 2px 6px rgba(0,91,152,0.06), 0 8px 24px rgba(0,91,152,0.10), 0 20px 40px rgba(0,91,152,0.08);
+      --shadow-lg:   0 4px 8px rgba(0,91,152,0.04), 0 12px 32px rgba(0,91,152,0.10), 0 32px 64px rgba(0,63,110,0.14);
+      --ease:        cubic-bezier(0.4,0,0.2,1);
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body {
+      font-family: var(--font-body);
+      color: var(--text);
+      background: #fff;
+      -webkit-font-smoothing: antialiased;
+      overflow-x: hidden;
+    }
+    img { max-width: 100%; display: block; }
+    a { text-decoration: none; color: inherit; }
+    ul { list-style: none; }
+
+    .container {
+      max-width: 1180px;
+      margin: 0 auto;
+      padding: 0 var(--pad);
+    }
+
+    /* ── Scroll Reveal ─────────────────────────────────────── */
+    .reveal {
+      opacity: 0;
+      transform: translateY(28px);
+      transition: opacity 0.65s var(--ease), transform 0.65s var(--ease);
+    }
+    .reveal.visible { opacity: 1; transform: translateY(0); }
+    .reveal-left {
+      opacity: 0;
+      transform: translateX(-40px);
+      transition: opacity 0.7s var(--ease), transform 0.7s var(--ease);
+    }
+    .reveal-left.visible { opacity: 1; transform: translateX(0); }
+    .reveal-right {
+      opacity: 0;
+      transform: translateX(40px);
+      transition: opacity 0.7s var(--ease), transform 0.7s var(--ease);
+    }
+    .reveal-right.visible { opacity: 1; transform: translateX(0); }
+    .reveal-scale {
+      opacity: 0;
+      transform: scale(0.94);
+      transition: opacity 0.65s var(--ease), transform 0.65s var(--ease);
+    }
+    .reveal-scale.visible { opacity: 1; transform: scale(1); }
+    .delay-1 { transition-delay: 0.1s; }
+    .delay-2 { transition-delay: 0.2s; }
+    .delay-3 { transition-delay: 0.3s; }
+    .delay-4 { transition-delay: 0.4s; }
+    .delay-5 { transition-delay: 0.5s; }
+    .delay-6 { transition-delay: 0.6s; }
+
+    /* ── Header / Nav ──────────────────────────────────────── */
+    header {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      height: var(--nav-h);
+      background: rgba(255,255,255,0.97);
+      backdrop-filter: blur(8px);
+      -webkit-backdrop-filter: blur(8px);
+      border-bottom: 1px solid var(--border);
+      z-index: 200;
+      display: flex;
+      align-items: center;
+      transition: height 0.3s var(--ease), box-shadow 0.3s var(--ease);
+    }
+    header.scrolled {
+      height: 60px;
+      box-shadow: 0 2px 20px rgba(0,91,152,0.1);
+    }
+    header .container {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      width: 100%;
+    }
+    .logo img {
+      height: 48px;
+      width: auto;
+      transition: height 0.3s var(--ease);
+    }
+    header.scrolled .logo img { height: 38px; }
+    nav {
+      display: flex;
+      align-items: center;
+      gap: 28px;
+    }
+    nav a {
+      font-family: var(--font-ui);
+      font-weight: 400;
+      font-size: 13px;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: var(--text);
+      transition: color 0.2s;
+      position: relative;
+    }
+    nav a::after {
+      content: '';
+      position: absolute;
+      bottom: -4px; left: 0;
+      width: 0; height: 2px;
+      background: var(--brand);
+      transition: width 0.25s var(--ease);
+    }
+    nav a:hover, nav a.active { color: var(--brand); }
+    nav a:hover::after, nav a.active::after { width: 100%; }
+    .nav-cta {
+      font-family: var(--font-ui) !important;
+      font-size: 13px !important;
+      font-weight: 700 !important;
+      text-transform: uppercase !important;
+      letter-spacing: 0.08em !important;
+      background: var(--brand) !important;
+      color: var(--white) !important;
+      padding: 10px 22px !important;
+      border-radius: var(--radius) !important;
+      transition: background 0.2s, transform 0.15s !important;
+    }
+    .nav-cta::after { display: none !important; }
+    .nav-cta:hover {
+      background: var(--accent) !important;
+      transform: translateY(-1px) !important;
+      color: var(--white) !important;
+    }
+    .hamburger {
+      display: none;
+      flex-direction: column;
+      gap: 5px;
+      cursor: pointer;
+      padding: 6px;
+      background: none;
+      border: none;
+    }
+    .hamburger span {
+      display: block;
+      width: 24px; height: 2px;
+      background: var(--brand);
+      border-radius: 2px;
+      transition: 0.3s;
+    }
+    .hamburger.open span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+    .hamburger.open span:nth-child(2) { opacity: 0; }
+    .hamburger.open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+    .mobile-nav {
+      display: none;
+      position: fixed;
+      top: var(--nav-h);
+      left: 0; right: 0;
+      background: #fff;
+      padding: 20px var(--pad);
+      border-bottom: 1px solid var(--border);
+      box-shadow: var(--shadow-md);
+      z-index: 199;
+      flex-direction: column;
+      gap: 16px;
+    }
+    .mobile-nav.open { display: flex; }
+    .mobile-nav a {
+      font-family: var(--font-ui);
+      font-size: 15px;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      color: var(--text);
+      padding: 8px 0;
+      border-bottom: 1px solid var(--border);
+    }
+    .mobile-nav a:last-child { border-bottom: none; }
+    .mobile-nav a:hover { color: var(--brand); }
+
+    /* ── Hero ──────────────────────────────────────────────── */
+    #hero {
+      padding-top: var(--nav-h);
+      min-height: 520px;
+      background: linear-gradient(135deg, var(--brand-dark) 0%, var(--brand) 55%, #0478b8 100%);
+      position: relative;
+      overflow: hidden;
+      display: flex;
+      align-items: center;
+    }
+    #hero::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background:
+        radial-gradient(ellipse 70% 60% at 80% 30%, rgba(7,176,245,0.22) 0%, transparent 60%),
+        radial-gradient(ellipse 50% 70% at 10% 80%, rgba(0,40,80,0.4) 0%, transparent 70%);
+    }
+    #hero::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200'%3E%3Cfilter id='grain'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23grain)' opacity='0.04'/%3E%3C/svg%3E");
+      opacity: 0.6;
+    }
+    .hero-decorative-circle {
+      position: absolute;
+      border-radius: 50%;
+      pointer-events: none;
+    }
+    .hero-circ-1 {
+      width: 500px; height: 500px;
+      top: -150px; right: -100px;
+      background: radial-gradient(circle, rgba(255,255,255,0.06) 0%, transparent 70%);
+      border: 1px solid rgba(255,255,255,0.08);
+    }
+    .hero-circ-2 {
+      width: 280px; height: 280px;
+      bottom: -80px; right: 20%;
+      background: radial-gradient(circle, rgba(7,176,245,0.12) 0%, transparent 70%);
+      border: 1px solid rgba(7,176,245,0.12);
+    }
+    .hero-circ-3 {
+      width: 160px; height: 160px;
+      top: 60px; left: 5%;
+      background: radial-gradient(circle, rgba(255,255,255,0.05) 0%, transparent 70%);
+      border: 1px solid rgba(255,255,255,0.07);
+    }
+    .hero-inner {
+      position: relative;
+      z-index: 2;
+      padding: 100px 0 80px;
+      width: 100%;
+      text-align: center;
+    }
+    .hero-breadcrumb {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      font-family: var(--font-ui);
+      font-size: 12px;
+      font-weight: 400;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.55);
+      margin-bottom: 24px;
+    }
+    .hero-breadcrumb span { color: rgba(255,255,255,0.85); }
+    .hero-eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      font-family: var(--font-ui);
+      font-size: 11px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.2em;
+      color: var(--accent);
+      background: rgba(7,176,245,0.15);
+      border: 1px solid rgba(7,176,245,0.3);
+      padding: 8px 18px;
+      border-radius: 50px;
+      margin-bottom: 22px;
+    }
+    .hero-eyebrow::before {
+      content: '';
+      width: 6px; height: 6px;
+      border-radius: 50%;
+      background: var(--accent);
+    }
+    .hero-title {
+      font-family: var(--font-display);
+      font-size: clamp(36px, 5vw, 64px);
+      font-weight: 700;
+      color: #fff;
+      line-height: 1.12;
+      letter-spacing: -0.03em;
+      margin-bottom: 20px;
+    }
+    .hero-title em {
+      font-style: italic;
+      color: var(--accent);
+    }
+    .hero-subtitle {
+      font-family: var(--font-body);
+      font-size: 18px;
+      color: rgba(255,255,255,0.78);
+      line-height: 1.7;
+      max-width: 600px;
+      margin: 0 auto 36px;
+    }
+    .hero-stats-bar {
+      display: flex;
+      justify-content: center;
+      gap: 48px;
+      flex-wrap: wrap;
+    }
+    .hero-stat {
+      text-align: center;
+    }
+    .hero-stat-value {
+      font-family: var(--font-display);
+      font-size: 36px;
+      font-weight: 700;
+      color: #fff;
+      line-height: 1;
+    }
+    .hero-stat-value span {
+      color: var(--accent);
+    }
+    .hero-stat-label {
+      font-family: var(--font-ui);
+      font-size: 11px;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      color: rgba(255,255,255,0.55);
+      margin-top: 6px;
+    }
+    .hero-divider {
+      width: 1px;
+      height: 40px;
+      background: rgba(255,255,255,0.15);
+      align-self: center;
+    }
+
+    /* ── Section Labels ─────────────────────────────────────── */
+    .section-label {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      font-family: var(--font-ui);
+      font-size: 11px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.18em;
+      color: var(--accent);
+      margin-bottom: 14px;
+    }
+    .section-label::before {
+      content: '';
+      display: block;
+      width: 28px; height: 2px;
+      background: var(--accent);
+      border-radius: 2px;
+    }
+    .section-title {
+      font-family: var(--font-display);
+      font-size: clamp(28px, 3.5vw, 44px);
+      font-weight: 700;
+      color: var(--text);
+      line-height: 1.18;
+      letter-spacing: -0.025em;
+      margin-bottom: 18px;
+    }
+    .section-title em { font-style: italic; color: var(--brand); }
+    .section-body {
+      font-family: var(--font-body);
+      font-size: 16px;
+      line-height: 1.75;
+      color: var(--text-light);
+    }
+
+    /* ── Profile Section ───────────────────────────────────── */
+    #profile {
+      padding: 100px 0;
+      background: #fff;
+    }
+    .profile-grid {
+      display: grid;
+      grid-template-columns: 420px 1fr;
+      gap: 80px;
+      align-items: start;
+    }
+    .profile-image-wrap {
+      position: relative;
+    }
+    .profile-img-frame {
+      border-radius: 16px;
+      overflow: hidden;
+      position: relative;
+      box-shadow: var(--shadow-lg);
+    }
+    .profile-img-frame img {
+      width: 100%;
+      aspect-ratio: 3/4;
+      object-fit: cover;
+    }
+    .profile-img-accent {
+      position: absolute;
+      bottom: -20px; right: -20px;
+      width: 120px; height: 120px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, var(--accent), var(--brand));
+      opacity: 0.15;
+      pointer-events: none;
+    }
+    .profile-img-dots {
+      position: absolute;
+      top: -16px; left: -16px;
+      width: 100px; height: 100px;
+      background-image: radial-gradient(circle, var(--border) 2px, transparent 2px);
+      background-size: 14px 14px;
+      pointer-events: none;
+    }
+    .profile-credential-chip {
+      position: absolute;
+      bottom: 28px; left: -24px;
+      background: #fff;
+      border-radius: 12px;
+      padding: 16px 20px;
+      box-shadow: var(--shadow-lg);
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      min-width: 200px;
+    }
+    .profile-cred-icon {
+      width: 40px; height: 40px;
+      border-radius: 10px;
+      background: linear-gradient(135deg, var(--brand), var(--accent));
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+    }
+    .profile-cred-icon svg {
+      width: 20px; height: 20px;
+      fill: #fff;
+    }
+    .profile-cred-text strong {
+      display: block;
+      font-family: var(--font-ui);
+      font-size: 13px;
+      font-weight: 700;
+      color: var(--text);
+    }
+    .profile-cred-text span {
+      font-family: var(--font-ui);
+      font-size: 11px;
+      color: var(--text-light);
+    }
+    .profile-content {}
+    .profile-name-block {
+      margin-bottom: 32px;
+    }
+    .profile-name {
+      font-family: var(--font-display);
+      font-size: clamp(32px, 3.5vw, 48px);
+      font-weight: 700;
+      color: var(--text);
+      letter-spacing: -0.02em;
+      line-height: 1.1;
+      margin-bottom: 8px;
+    }
+    .profile-title-tag {
+      font-family: var(--font-ui);
+      font-size: 13px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      color: var(--accent);
+    }
+    .profile-bio-text {
+      font-family: var(--font-body);
+      font-size: 16px;
+      line-height: 1.8;
+      color: var(--text-light);
+      margin-bottom: 24px;
+    }
+    .profile-bio-text + .profile-bio-text {
+      margin-top: -12px;
+    }
+    .profile-highlights {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 16px;
+      margin-top: 36px;
+    }
+    .profile-highlight-item {
+      display: flex;
+      align-items: flex-start;
+      gap: 12px;
+      padding: 18px;
+      background: var(--surface);
+      border-radius: var(--radius);
+      border: 1px solid var(--border);
+      transition: transform 0.25s var(--ease), box-shadow 0.25s var(--ease);
+    }
+    .profile-highlight-item:hover {
+      transform: translateY(-3px);
+      box-shadow: var(--shadow-md);
+    }
+    .phi-icon {
+      width: 36px; height: 36px;
+      border-radius: 8px;
+      background: linear-gradient(135deg, rgba(0,91,152,0.1), rgba(7,176,245,0.12));
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+    }
+    .phi-icon svg {
+      width: 18px; height: 18px;
+      stroke: var(--brand);
+      fill: none;
+      stroke-width: 2;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+    }
+    .phi-text strong {
+      display: block;
+      font-family: var(--font-ui);
+      font-size: 12px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      color: var(--text);
+      margin-bottom: 2px;
+    }
+    .phi-text span {
+      font-family: var(--font-body);
+      font-size: 13px;
+      color: var(--text-light);
+      line-height: 1.5;
+    }
+
+    /* ── Philosophy Quote ──────────────────────────────────── */
+    #philosophy {
+      padding: 80px 0;
+      background: linear-gradient(135deg, var(--brand-dark) 0%, var(--brand) 100%);
+      position: relative;
+      overflow: hidden;
+    }
+    #philosophy::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background:
+        radial-gradient(ellipse 60% 80% at 90% 50%, rgba(7,176,245,0.15) 0%, transparent 60%),
+        radial-gradient(ellipse 40% 60% at 10% 50%, rgba(0,0,0,0.2) 0%, transparent 60%);
+    }
+    #philosophy::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200'%3E%3Cfilter id='grain'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23grain)' opacity='0.04'/%3E%3C/svg%3E");
+      opacity: 0.5;
+    }
+    .philosophy-inner {
+      position: relative;
+      z-index: 2;
+      text-align: center;
+      max-width: 820px;
+      margin: 0 auto;
+    }
+    .philosophy-quote-mark {
+      font-family: var(--font-display);
+      font-size: 120px;
+      line-height: 0.8;
+      color: rgba(7,176,245,0.25);
+      margin-bottom: 16px;
+      font-style: italic;
+    }
+    .philosophy-quote {
+      font-family: var(--font-display);
+      font-size: clamp(22px, 3vw, 34px);
+      font-style: italic;
+      font-weight: 600;
+      color: #fff;
+      line-height: 1.45;
+      letter-spacing: -0.01em;
+      margin-bottom: 28px;
+    }
+    .philosophy-byline {
+      font-family: var(--font-ui);
+      font-size: 13px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.15em;
+      color: rgba(255,255,255,0.55);
+    }
+    .philosophy-byline span {
+      color: var(--accent);
+    }
+    .philosophy-pillars {
+      display: flex;
+      justify-content: center;
+      gap: 12px;
+      flex-wrap: wrap;
+      margin-top: 40px;
+    }
+    .philo-pill {
+      font-family: var(--font-ui);
+      font-size: 12px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      color: rgba(255,255,255,0.8);
+      background: rgba(255,255,255,0.08);
+      border: 1px solid rgba(255,255,255,0.15);
+      padding: 8px 18px;
+      border-radius: 50px;
+      transition: background 0.2s, color 0.2s, border-color 0.2s;
+    }
+    .philo-pill:hover {
+      background: rgba(7,176,245,0.2);
+      color: #fff;
+      border-color: rgba(7,176,245,0.4);
+    }
+
+    /* ── 4 Pillars of Care ─────────────────────────────────── */
+    #pillars {
+      padding: 100px 0;
+      background: var(--surface);
+      position: relative;
+    }
+    #pillars::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0;
+      height: 3px;
+      background: linear-gradient(90deg, var(--brand), var(--accent), var(--brand));
+    }
+    .pillars-header {
+      text-align: center;
+      max-width: 600px;
+      margin: 0 auto 64px;
+    }
+    .pillars-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 28px;
+    }
+    .pillar-card {
+      background: #fff;
+      border-radius: 16px;
+      padding: 40px;
+      box-shadow: var(--shadow-sm);
+      border: 1px solid var(--border);
+      position: relative;
+      overflow: hidden;
+      transition: transform 0.3s var(--ease), box-shadow 0.3s var(--ease);
+    }
+    .pillar-card::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0;
+      width: 4px;
+      height: 100%;
+      background: linear-gradient(180deg, var(--brand), var(--accent));
+      opacity: 0;
+      transition: opacity 0.3s var(--ease);
+    }
+    .pillar-card:hover {
+      transform: translateY(-6px);
+      box-shadow: var(--shadow-lg);
+    }
+    .pillar-card:hover::before {
+      opacity: 1;
+    }
+    .pillar-number {
+      font-family: var(--font-display);
+      font-size: 72px;
+      font-weight: 700;
+      color: rgba(0,91,152,0.06);
+      line-height: 1;
+      position: absolute;
+      top: 20px; right: 24px;
+    }
+    .pillar-icon-wrap {
+      width: 56px; height: 56px;
+      border-radius: 14px;
+      background: linear-gradient(135deg, rgba(0,91,152,0.1), rgba(7,176,245,0.15));
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 24px;
+      transition: background 0.3s var(--ease);
+    }
+    .pillar-card:hover .pillar-icon-wrap {
+      background: linear-gradient(135deg, var(--brand), var(--accent));
+    }
+    .pillar-icon-wrap svg {
+      width: 28px; height: 28px;
+      stroke: var(--brand);
+      fill: none;
+      stroke-width: 1.8;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+      transition: stroke 0.3s;
+    }
+    .pillar-card:hover .pillar-icon-wrap svg {
+      stroke: #fff;
+    }
+    .pillar-title {
+      font-family: var(--font-display);
+      font-size: 22px;
+      font-weight: 700;
+      color: var(--text);
+      margin-bottom: 12px;
+      letter-spacing: -0.01em;
+    }
+    .pillar-body {
+      font-family: var(--font-body);
+      font-size: 15px;
+      line-height: 1.75;
+      color: var(--text-light);
+    }
+    .pillar-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-top: 20px;
+    }
+    .pillar-tag {
+      font-family: var(--font-ui);
+      font-size: 11px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      color: var(--brand);
+      background: rgba(0,91,152,0.07);
+      padding: 5px 12px;
+      border-radius: 50px;
+    }
+
+    /* ── Timeline ──────────────────────────────────────────── */
+    #timeline {
+      padding: 100px 0;
+      background: #fff;
+    }
+    .timeline-header {
+      text-align: center;
+      max-width: 600px;
+      margin: 0 auto 70px;
+    }
+    .timeline-track {
+      position: relative;
+      max-width: 900px;
+      margin: 0 auto;
+    }
+    .timeline-track::before {
+      content: '';
+      position: absolute;
+      left: 50%;
+      top: 0; bottom: 0;
+      width: 2px;
+      background: linear-gradient(180deg, var(--brand) 0%, var(--accent) 50%, var(--border) 100%);
+      transform: translateX(-50%);
+    }
+    .timeline-item {
+      display: grid;
+      grid-template-columns: 1fr 60px 1fr;
+      gap: 0;
+      margin-bottom: 52px;
+      align-items: center;
+    }
+    .timeline-item:last-child { margin-bottom: 0; }
+    .timeline-content-left {
+      padding-right: 40px;
+      text-align: right;
+    }
+    .timeline-content-right {
+      padding-left: 40px;
+      text-align: left;
+    }
+    .timeline-empty { }
+    .timeline-dot-col {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+    .timeline-dot {
+      width: 48px; height: 48px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, var(--brand), var(--accent));
+      box-shadow: 0 0 0 6px rgba(0,91,152,0.1), var(--shadow-sm);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+      position: relative;
+      z-index: 2;
+      transition: transform 0.3s var(--ease), box-shadow 0.3s var(--ease);
+    }
+    .timeline-dot:hover {
+      transform: scale(1.15);
+      box-shadow: 0 0 0 10px rgba(7,176,245,0.12), var(--shadow-md);
+    }
+    .timeline-dot svg {
+      width: 20px; height: 20px;
+      stroke: #fff;
+      fill: none;
+      stroke-width: 2;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+    }
+    .timeline-year {
+      font-family: var(--font-ui);
+      font-size: 11px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      color: var(--accent);
+      margin-bottom: 6px;
+    }
+    .timeline-event-title {
+      font-family: var(--font-display);
+      font-size: 18px;
+      font-weight: 700;
+      color: var(--text);
+      margin-bottom: 8px;
+    }
+    .timeline-event-body {
+      font-family: var(--font-body);
+      font-size: 14px;
+      line-height: 1.65;
+      color: var(--text-light);
+    }
+    .timeline-card {
+      background: var(--surface);
+      border-radius: 12px;
+      padding: 22px 24px;
+      border: 1px solid var(--border);
+      transition: transform 0.25s var(--ease), box-shadow 0.25s var(--ease);
+    }
+    .timeline-card:hover {
+      transform: translateY(-4px);
+      box-shadow: var(--shadow-md);
+    }
+
+    /* ── Values Grid ───────────────────────────────────────── */
+    #values {
+      padding: 80px 0;
+      background: var(--surface);
+    }
+    .values-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 24px;
+      margin-top: 52px;
+    }
+    .value-card {
+      background: #fff;
+      border-radius: 12px;
+      padding: 32px;
+      border: 1px solid var(--border);
+      text-align: center;
+      box-shadow: var(--shadow-sm);
+      transition: transform 0.25s var(--ease), box-shadow 0.25s var(--ease);
+    }
+    .value-card:hover {
+      transform: translateY(-5px);
+      box-shadow: var(--shadow-md);
+    }
+    .value-icon {
+      width: 56px; height: 56px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, rgba(0,91,152,0.08), rgba(7,176,245,0.12));
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 0 auto 20px;
+    }
+    .value-icon svg {
+      width: 26px; height: 26px;
+      stroke: var(--brand);
+      fill: none;
+      stroke-width: 1.8;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+    }
+    .value-title {
+      font-family: var(--font-display);
+      font-size: 18px;
+      font-weight: 700;
+      color: var(--text);
+      margin-bottom: 10px;
+    }
+    .value-body {
+      font-family: var(--font-body);
+      font-size: 14px;
+      line-height: 1.7;
+      color: var(--text-light);
+    }
+
+    /* ── CTA Band ──────────────────────────────────────────── */
+    #cta-band {
+      padding: 80px 0;
+      background: linear-gradient(135deg, var(--brand-dark) 0%, var(--brand) 100%);
+      position: relative;
+      overflow: hidden;
+      text-align: center;
+    }
+    #cta-band::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(ellipse 60% 80% at 80% 50%, rgba(7,176,245,0.18) 0%, transparent 60%);
+    }
+    #cta-band::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200'%3E%3Cfilter id='grain'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23grain)' opacity='0.04'/%3E%3C/svg%3E");
+      opacity: 0.5;
+    }
+    .cta-inner {
+      position: relative;
+      z-index: 2;
+    }
+    .cta-title {
+      font-family: var(--font-display);
+      font-size: clamp(26px, 3.5vw, 42px);
+      font-weight: 700;
+      color: #fff;
+      letter-spacing: -0.025em;
+      margin-bottom: 16px;
+    }
+    .cta-subtitle {
+      font-family: var(--font-body);
+      font-size: 17px;
+      color: rgba(255,255,255,0.72);
+      margin-bottom: 36px;
+      max-width: 520px;
+      margin-left: auto;
+      margin-right: auto;
+      line-height: 1.65;
+    }
+    .cta-buttons {
+      display: flex;
+      justify-content: center;
+      gap: 16px;
+      flex-wrap: wrap;
+    }
+    .btn-white {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      font-family: var(--font-ui);
+      font-size: 14px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: var(--brand);
+      background: #fff;
+      padding: 14px 32px;
+      border-radius: var(--radius);
+      box-shadow: 0 4px 20px rgba(0,0,0,0.15);
+      transition: transform 0.2s var(--ease), box-shadow 0.2s var(--ease);
+    }
+    .btn-white:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 30px rgba(0,0,0,0.2);
+    }
+    .btn-outline-white {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      font-family: var(--font-ui);
+      font-size: 14px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: #fff;
+      background: transparent;
+      padding: 14px 32px;
+      border-radius: var(--radius);
+      border: 2px solid rgba(255,255,255,0.4);
+      transition: background 0.2s, border-color 0.2s, transform 0.2s;
+    }
+    .btn-outline-white:hover {
+      background: rgba(255,255,255,0.1);
+      border-color: rgba(255,255,255,0.7);
+      transform: translateY(-2px);
+    }
+
+    /* ── Footer ────────────────────────────────────────────── */
+    footer {
+      background: #0a1929;
+      color: rgba(255,255,255,0.55);
+      padding: 48px 0;
+      text-align: center;
+    }
+    .footer-inner {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 16px;
+    }
+    .footer-logo img {
+      height: 40px;
+      width: auto;
+      opacity: 0.75;
+      filter: brightness(10);
+    }
+    .footer-tagline {
+      font-family: var(--font-body);
+      font-size: 14px;
+      color: rgba(255,255,255,0.45);
+    }
+    .footer-links {
+      display: flex;
+      gap: 24px;
+      flex-wrap: wrap;
+      justify-content: center;
+    }
+    .footer-links a {
+      font-family: var(--font-ui);
+      font-size: 12px;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: rgba(255,255,255,0.4);
+      transition: color 0.2s;
+    }
+    .footer-links a:hover { color: var(--accent); }
+    .footer-copyright {
+      font-family: var(--font-ui);
+      font-size: 12px;
+      color: rgba(255,255,255,0.25);
+    }
+    .footer-divider {
+      width: 60px; height: 1px;
+      background: rgba(255,255,255,0.1);
+    }
+
+    /* ── Responsive ────────────────────────────────────────── */
+    @media (max-width: 900px) {
+      .profile-grid { grid-template-columns: 1fr; gap: 48px; }
+      .pillars-grid { grid-template-columns: 1fr; }
+      .values-grid { grid-template-columns: repeat(2, 1fr); }
+      .timeline-track::before { left: 20px; }
+      .timeline-item { grid-template-columns: 0 48px 1fr; }
+      .timeline-content-left { display: none; }
+      .timeline-content-right { padding-left: 24px; }
+      .timeline-dot-col { justify-content: flex-start; }
+      .hero-stats-bar { gap: 28px; }
+      .hero-divider { display: none; }
+    }
+    @media (max-width: 640px) {
+      nav { display: none; }
+      .hamburger { display: flex; }
+      .values-grid { grid-template-columns: 1fr; }
+      .profile-credential-chip { left: 0; }
+      .profile-highlights { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ── Header ──────────────────────────────────────────── -->
+  <header id="site-header">
+    <div class="container">
+      <a href="index.html" class="logo">
+        <img src="Brand_assests /Screenshot 2026-03-18 at 12.44.23.png" alt="Hands On Chiropractic" />
+      </a>
+      <nav id="main-nav">
+        <a href="index.html">Home</a>
+        <a href="index.html#services">Services</a>
+        <a href="about.html" class="active">About</a>
+        <a href="faq.html">FAQ</a>
+        <a href="index.html#contact">Contact</a>
+        <a href="index.html#cta" class="nav-cta">Book Now</a>
+      </nav>
+      <button class="hamburger" id="hamburger" aria-label="Menu">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </header>
+  <div class="mobile-nav" id="mobileNav">
+    <a href="index.html">Home</a>
+    <a href="index.html#services">Services</a>
+    <a href="about.html">About</a>
+    <a href="faq.html">FAQ</a>
+    <a href="index.html#contact">Contact</a>
+    <a href="index.html#cta" class="nav-cta" style="margin-top:8px;display:block;text-align:center;padding:12px 24px;">Book Now</a>
+  </div>
+
+  <!-- ── Hero ────────────────────────────────────────────── -->
+  <section id="hero">
+    <div class="hero-decorative-circle hero-circ-1"></div>
+    <div class="hero-decorative-circle hero-circ-2"></div>
+    <div class="hero-decorative-circle hero-circ-3"></div>
+    <div class="container">
+      <div class="hero-inner">
+        <div class="hero-breadcrumb">
+          <a href="index.html" style="color:rgba(255,255,255,0.5);">Home</a>
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="opacity:0.4"><polyline points="9 18 15 12 9 6"/></svg>
+          <span>About</span>
+        </div>
+        <div class="hero-eyebrow reveal">Meet Your Chiropractor</div>
+        <h1 class="hero-title reveal delay-1">
+          Hands On Health<br><em>Chiropractic Care</em>
+        </h1>
+        <p class="hero-subtitle reveal delay-2">
+          Dedicated to restoring your body's natural balance through precise, personalised chiropractic care since 2014.
+        </p>
+        <div class="hero-stats-bar reveal delay-3">
+          <div class="hero-stat">
+            <div class="hero-stat-value">11<span>+</span></div>
+            <div class="hero-stat-label">Years in Practice</div>
+          </div>
+          <div class="hero-divider"></div>
+          <div class="hero-stat">
+            <div class="hero-stat-value">4.9<span>★</span></div>
+            <div class="hero-stat-label">Google Rating</div>
+          </div>
+          <div class="hero-divider"></div>
+          <div class="hero-stat">
+            <div class="hero-stat-value">1<span>k+</span></div>
+            <div class="hero-stat-label">Patients Helped</div>
+          </div>
+          <div class="hero-divider"></div>
+          <div class="hero-stat">
+            <div class="hero-stat-value">4</div>
+            <div class="hero-stat-label">Care Pillars</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── Profile Section ──────────────────────────────────── -->
+  <section id="profile">
+    <div class="container">
+      <div class="profile-grid">
+        <div class="profile-image-wrap reveal-left">
+          <div class="profile-img-dots"></div>
+          <div class="profile-img-frame">
+            <img src="https://images.pexels.com/photos/5473182/pexels-photo-5473182.jpeg?auto=compress&cs=tinysrgb&w=600&h=800&fit=crop" alt="Dr. Seung Koo Cho — Chiropractor" />
+          </div>
+          <div class="profile-img-accent"></div>
+          <div class="profile-credential-chip">
+            <div class="profile-cred-icon">
+              <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/></svg>
+            </div>
+            <div class="profile-cred-text">
+              <strong>Dr. Seung Koo Cho</strong>
+              <span>Registered Chiropractor</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="profile-content reveal-right">
+          <div class="section-label">About the Practitioner</div>
+          <div class="profile-name-block">
+            <div class="profile-name">Dr. Seung Koo Cho</div>
+            <div class="profile-title-tag">DC — Doctor of Chiropractic</div>
+          </div>
+
+          <p class="profile-bio-text">
+            Dr. Seung Koo Cho has been serving the Cooranbong and Lake Macquarie community since 2014, building a reputation for compassionate, results-driven chiropractic care. With over a decade of hands-on experience, Dr. Cho brings a comprehensive approach to spinal health and overall wellness.
+          </p>
+          <p class="profile-bio-text">
+            His practice philosophy is grounded in a deep respect for the body's innate healing ability. Rather than simply masking symptoms, Dr. Cho works to identify and address the root causes of pain and dysfunction — empowering patients to achieve lasting relief and long-term health.
+          </p>
+          <p class="profile-bio-text">
+            Dr. Cho is committed to ongoing professional development, staying at the forefront of chiropractic techniques and evidence-based approaches. Whether you're dealing with acute pain, a sports injury, or seeking wellness care, his goal is always to help you move better, feel better, and live better.
+          </p>
+
+          <div class="profile-highlights">
+            <div class="profile-highlight-item reveal delay-1">
+              <div class="phi-icon">
+                <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+              </div>
+              <div class="phi-text">
+                <strong>Practising Since 2014</strong>
+                <span>Over 11 years of dedicated chiropractic care</span>
+              </div>
+            </div>
+            <div class="profile-highlight-item reveal delay-2">
+              <div class="phi-icon">
+                <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><circle cx="12" cy="12" r="10"/><path d="M12 8v4l3 3"/></svg>
+              </div>
+              <div class="phi-text">
+                <strong>Personalised Treatment</strong>
+                <span>Every care plan tailored to the individual</span>
+              </div>
+            </div>
+            <div class="profile-highlight-item reveal delay-3">
+              <div class="phi-icon">
+                <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+              </div>
+              <div class="phi-text">
+                <strong>Family-Friendly Practice</strong>
+                <span>Welcoming patients of all ages</span>
+              </div>
+            </div>
+            <div class="profile-highlight-item reveal delay-4">
+              <div class="phi-icon">
+                <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12 2a10 10 0 1 0 0 20 10 10 0 0 0 0-20z"/><path d="M12 8v4"/><path d="M12 16h.01"/></svg>
+              </div>
+              <div class="phi-text">
+                <strong>Evidence-Based Approach</strong>
+                <span>Continual professional development</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── Philosophy ────────────────────────────────────────── -->
+  <section id="philosophy">
+    <div class="container">
+      <div class="philosophy-inner">
+        <div class="philosophy-quote-mark reveal">"</div>
+        <blockquote class="philosophy-quote reveal delay-1">
+          "Your body has an incredible innate intelligence to heal and regulate itself. My role is to remove the interference — to restore alignment so your nervous system can communicate freely and your body can do what it was designed to do."
+        </blockquote>
+        <p class="philosophy-byline reveal delay-2">— <span>Dr. Seung Koo Cho</span>, Hands On Chiropractic Centre</p>
+        <div class="philosophy-pillars reveal delay-3">
+          <span class="philo-pill">Innate Healing</span>
+          <span class="philo-pill">Spinal Alignment</span>
+          <span class="philo-pill">Nervous System Health</span>
+          <span class="philo-pill">Whole-Body Wellness</span>
+          <span class="philo-pill">Long-Term Results</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── 4 Pillars of Care ─────────────────────────────────── -->
+  <section id="pillars">
+    <div class="container">
+      <div class="pillars-header">
+        <div class="section-label reveal">Our Approach</div>
+        <h2 class="section-title reveal delay-1">The Four <em>Pillars</em> of Care</h2>
+        <p class="section-body reveal delay-2">Dr. Cho's practice is built on four foundational principles that guide every treatment plan and patient interaction.</p>
+      </div>
+      <div class="pillars-grid">
+
+        <div class="pillar-card reveal delay-1">
+          <div class="pillar-number">01</div>
+          <div class="pillar-icon-wrap">
+            <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12 2a10 10 0 1 0 10 10A10 10 0 0 0 12 2zm0 18a8 8 0 1 1 8-8 8 8 0 0 1-8 8z"/><path d="M12 6v6l4 2"/></svg>
+          </div>
+          <h3 class="pillar-title">Chiropractic Adjustments</h3>
+          <p class="pillar-body">Precise, targeted spinal manipulation to restore proper alignment, relieve nerve interference, and reduce pain. Dr. Cho uses a variety of adjustment techniques — from gentle low-force methods to diversified manual adjustments — selecting the approach that best suits each patient's needs and comfort level.</p>
+          <div class="pillar-tags">
+            <span class="pillar-tag">Spinal Manipulation</span>
+            <span class="pillar-tag">Diversified Technique</span>
+            <span class="pillar-tag">Low-Force Options</span>
+          </div>
+        </div>
+
+        <div class="pillar-card reveal delay-2">
+          <div class="pillar-number">02</div>
+          <div class="pillar-icon-wrap">
+            <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M4.5 6.375a4.125 4.125 0 1 1 8.25 0 4.125 4.125 0 0 1-8.25 0zm0 0"/><path d="M14.25 8.625a3.375 3.375 0 1 1 6.75 0 3.375 3.375 0 0 1-6.75 0zm0 0"/><path d="M1.5 19.125a7.125 7.125 0 0 1 14.25 0v.003l-.001.119a.75.75 0 0 1-.363.63 13.067 13.067 0 0 1-6.761 1.873c-2.472 0-4.786-.684-6.76-1.873a.75.75 0 0 1-.364-.63l-.001-.122zm0 0"/><path d="M17.25 19.128l-.001.144a2.25 2.25 0 0 1-.233.96 10.088 10.088 0 0 0 5.06-1.01.75.75 0 0 0 .42-.643 4.875 4.875 0 0 0-6.957-4.611 8.586 8.586 0 0 1 1.71 5.157v.003z"/></svg>
+          </div>
+          <h3 class="pillar-title">Therapeutic Techniques</h3>
+          <p class="pillar-body">Complementary therapies integrated alongside chiropractic adjustments to accelerate healing and improve outcomes. This includes soft tissue therapy, myofascial release, dry needling, therapeutic ultrasound, and targeted exercise rehabilitation — creating a well-rounded treatment plan that addresses both structural and muscular components.</p>
+          <div class="pillar-tags">
+            <span class="pillar-tag">Soft Tissue Therapy</span>
+            <span class="pillar-tag">Dry Needling</span>
+            <span class="pillar-tag">Rehabilitation</span>
+          </div>
+        </div>
+
+        <div class="pillar-card reveal delay-3">
+          <div class="pillar-number">03</div>
+          <div class="pillar-icon-wrap">
+            <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>
+          </div>
+          <h3 class="pillar-title">Family Chiropractic Care</h3>
+          <p class="pillar-body">Safe, gentle chiropractic care for patients of every age — from newborns and children to seniors. Dr. Cho understands that each life stage comes with unique spinal challenges, and adapts his techniques accordingly. Whether it's checking a baby's developing spine, helping a teenager with posture, or managing arthritis in an older adult, the whole family is welcome.</p>
+          <div class="pillar-tags">
+            <span class="pillar-tag">Paediatric Care</span>
+            <span class="pillar-tag">Prenatal</span>
+            <span class="pillar-tag">Senior Care</span>
+          </div>
+        </div>
+
+        <div class="pillar-card reveal delay-4">
+          <div class="pillar-number">04</div>
+          <div class="pillar-icon-wrap">
+            <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+          </div>
+          <h3 class="pillar-title">Wellness Chiropractic</h3>
+          <p class="pillar-body">Beyond pain relief, proactive wellness chiropractic keeps your spine and nervous system functioning optimally — even when you feel fine. Regular maintenance care helps prevent future injuries, improves posture, enhances energy levels, and supports your body's ability to manage everyday stress. It's healthcare, not just sick-care.</p>
+          <div class="pillar-tags">
+            <span class="pillar-tag">Preventive Care</span>
+            <span class="pillar-tag">Posture Correction</span>
+            <span class="pillar-tag">Performance</span>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ── Timeline ──────────────────────────────────────────── -->
+  <section id="timeline">
+    <div class="container">
+      <div class="timeline-header">
+        <div class="section-label reveal">Our Journey</div>
+        <h2 class="section-title reveal delay-1">A Decade of <em>Dedication</em></h2>
+        <p class="section-body reveal delay-2">From the early days of practice to becoming a trusted pillar of the Cooranbong community — here's the story of Hands On Chiropractic.</p>
+      </div>
+
+      <div class="timeline-track">
+
+        <div class="timeline-item">
+          <div class="timeline-content-left reveal-left">
+            <div class="timeline-card">
+              <div class="timeline-year">2014</div>
+              <div class="timeline-event-title">Practice Founded</div>
+              <div class="timeline-event-body">Dr. Seung Koo Cho establishes Hands On Chiropractic Centre in Cooranbong, NSW — bringing professional chiropractic care to the local community.</div>
+            </div>
+          </div>
+          <div class="timeline-dot-col">
+            <div class="timeline-dot">
+              <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/></svg>
+            </div>
+          </div>
+          <div class="timeline-empty"></div>
+        </div>
+
+        <div class="timeline-item">
+          <div class="timeline-empty"></div>
+          <div class="timeline-dot-col">
+            <div class="timeline-dot">
+              <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+            </div>
+          </div>
+          <div class="timeline-content-right reveal-right">
+            <div class="timeline-card">
+              <div class="timeline-year">2016</div>
+              <div class="timeline-event-title">Growing Patient Community</div>
+              <div class="timeline-event-body">A rapidly growing patient base built on referrals and results. Expanded services to include family chiropractic care, welcoming patients of all ages.</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="timeline-item">
+          <div class="timeline-content-left reveal-left">
+            <div class="timeline-card">
+              <div class="timeline-year">2018</div>
+              <div class="timeline-event-title">Advanced Techniques Added</div>
+              <div class="timeline-event-body">Expanded the practice's therapeutic toolkit with dry needling, myofascial release, and evidence-based rehabilitation programs for sports injuries.</div>
+            </div>
+          </div>
+          <div class="timeline-dot-col">
+            <div class="timeline-dot">
+              <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+            </div>
+          </div>
+          <div class="timeline-empty"></div>
+        </div>
+
+        <div class="timeline-item">
+          <div class="timeline-empty"></div>
+          <div class="timeline-dot-col">
+            <div class="timeline-dot">
+              <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+            </div>
+          </div>
+          <div class="timeline-content-right reveal-right">
+            <div class="timeline-card">
+              <div class="timeline-year">2020–2022</div>
+              <div class="timeline-event-title">Community Through Challenges</div>
+              <div class="timeline-event-body">Continued to serve the community through difficult times with telehealth consultations and adapted protocols, maintaining patient care as an essential health service.</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="timeline-item">
+          <div class="timeline-content-left reveal-left">
+            <div class="timeline-card">
+              <div class="timeline-year">2024</div>
+              <div class="timeline-event-title">10 Year Milestone</div>
+              <div class="timeline-event-body">Celebrating a decade of dedicated service to the Cooranbong and Lake Macquarie region. Thousands of patients helped, hundreds of families under ongoing wellness care.</div>
+            </div>
+          </div>
+          <div class="timeline-dot-col">
+            <div class="timeline-dot">
+              <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+            </div>
+          </div>
+          <div class="timeline-empty"></div>
+        </div>
+
+        <div class="timeline-item">
+          <div class="timeline-empty"></div>
+          <div class="timeline-dot-col">
+            <div class="timeline-dot">
+              <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><circle cx="12" cy="12" r="10"/><path d="M12 8v4l3 3"/></svg>
+            </div>
+          </div>
+          <div class="timeline-content-right reveal-right">
+            <div class="timeline-card">
+              <div class="timeline-year">2025 — Today</div>
+              <div class="timeline-event-title">Still Growing, Still Caring</div>
+              <div class="timeline-event-body">Continuing to grow with new patients while deepening care for long-standing families. Focused on delivering the same hands-on, personalised approach that has defined the practice from day one.</div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ── Values ────────────────────────────────────────────── -->
+  <section id="values">
+    <div class="container">
+      <div style="text-align:center;max-width:580px;margin:0 auto 16px;">
+        <div class="section-label reveal">Core Values</div>
+        <h2 class="section-title reveal delay-1">What We <em>Stand For</em></h2>
+      </div>
+      <div class="values-grid">
+        <div class="value-card reveal delay-1">
+          <div class="value-icon">
+            <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>
+          </div>
+          <h3 class="value-title">Patient-First</h3>
+          <p class="value-body">Every decision starts with what's best for the patient. We listen, we educate, and we build care plans that respect your goals, lifestyle, and preferences.</p>
+        </div>
+        <div class="value-card reveal delay-2">
+          <div class="value-icon">
+            <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+          </div>
+          <h3 class="value-title">Integrity & Honesty</h3>
+          <p class="value-body">We provide honest assessments and realistic expectations. If chiropractic isn't the right fit, we'll say so and refer you to the appropriate specialist.</p>
+        </div>
+        <div class="value-card reveal delay-3">
+          <div class="value-icon">
+            <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M18 20V10"/><path d="M12 20V4"/><path d="M6 20v-6"/></svg>
+          </div>
+          <h3 class="value-title">Evidence-Based Care</h3>
+          <p class="value-body">Our techniques are grounded in current research and best practice. We continually update our knowledge to bring you the most effective treatments available.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── CTA Band ──────────────────────────────────────────── -->
+  <section id="cta-band">
+    <div class="container">
+      <div class="cta-inner">
+        <h2 class="cta-title reveal">Ready to Experience the Difference?</h2>
+        <p class="cta-subtitle reveal delay-1">Book your appointment with Dr. Cho today and take the first step toward lasting health and wellness.</p>
+        <div class="cta-buttons reveal delay-2">
+          <a href="tel:+61249733889" class="btn-white">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.72 12.5a19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 3.63 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l.81-.81a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+            Call (02) 4973 3889
+          </a>
+          <a href="faq.html" class="btn-outline-white">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
+            View FAQ
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── Footer ────────────────────────────────────────────── -->
+  <footer>
+    <div class="container">
+      <div class="footer-inner">
+        <div class="footer-logo">
+          <img src="Brand_assests /Screenshot 2026-03-18 at 12.44.23.png" alt="Hands On Chiropractic" />
+        </div>
+        <p class="footer-tagline">272a Freemans Drive, Cooranbong NSW 2265 &nbsp;|&nbsp; (02) 4973 3889</p>
+        <div class="footer-divider"></div>
+        <div class="footer-links">
+          <a href="index.html">Home</a>
+          <a href="about.html">About</a>
+          <a href="faq.html">FAQ</a>
+          <a href="index.html#contact">Contact</a>
+          <a href="#">Privacy Policy</a>
+        </div>
+        <p class="footer-copyright">&copy; 2025 Hands On Chiropractic Centre. All rights reserved.</p>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    // ── Header scroll ─────────────────────────────────────────
+    (function() {
+      var header = document.getElementById('site-header');
+      window.addEventListener('scroll', function() {
+        if (window.scrollY > 30) {
+          header.classList.add('scrolled');
+        } else {
+          header.classList.remove('scrolled');
+        }
+      });
+    })();
+
+    // ── Hamburger ─────────────────────────────────────────────
+    (function() {
+      var btn = document.getElementById('hamburger');
+      var nav = document.getElementById('mobileNav');
+      btn.addEventListener('click', function() {
+        btn.classList.toggle('open');
+        nav.classList.toggle('open');
+      });
+    })();
+
+    // ── Scroll Reveal ─────────────────────────────────────────
+    (function() {
+      var els = document.querySelectorAll('.reveal, .reveal-left, .reveal-right, .reveal-scale');
+      if (!('IntersectionObserver' in window)) {
+        els.forEach(function(el) { el.classList.add('visible'); });
+        return;
+      }
+      var observer = new IntersectionObserver(function(entries) {
+        entries.forEach(function(entry) {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('visible');
+            observer.unobserve(entry.target);
+          }
+        });
+      }, { threshold: 0.12 });
+      els.forEach(function(el) { observer.observe(el); });
+    })();
+  </script>
+</body>
+</html>

@@ -1,0 +1,1605 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>FAQ — Hands On Chiropractic Centre</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400;1,600&family=Roboto+Condensed:wght@300;400;700&family=PT+Sans:wght@400;700&display=swap" rel="stylesheet" />
+  <style>
+    /* ── CSS Variables ─────────────────────────────────────── */
+    :root {
+      --brand:       #005B98;
+      --brand-dark:  #003f6e;
+      --accent:      #07B0F5;
+      --text:        #343434;
+      --text-light:  #666;
+      --white:       #FFFFFF;
+      --surface:     #F6F6F6;
+      --border:      rgba(0,91,152,0.1);
+      --font-ui:     'Roboto Condensed', sans-serif;
+      --font-display:'Playfair Display', serif;
+      --font-body:   'PT Sans', sans-serif;
+      --pad:         28px;
+      --nav-h:       75px;
+      --radius:      10px;
+      --shadow-sm:   0 1px 3px rgba(0,91,152,0.04), 0 4px 12px rgba(0,91,152,0.08);
+      --shadow-md:   0 2px 6px rgba(0,91,152,0.06), 0 8px 24px rgba(0,91,152,0.10), 0 20px 40px rgba(0,91,152,0.08);
+      --shadow-lg:   0 4px 8px rgba(0,91,152,0.04), 0 12px 32px rgba(0,91,152,0.10), 0 32px 64px rgba(0,63,110,0.14);
+      --ease:        cubic-bezier(0.4,0,0.2,1);
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body {
+      font-family: var(--font-body);
+      color: var(--text);
+      background: #fff;
+      -webkit-font-smoothing: antialiased;
+      overflow-x: hidden;
+    }
+    img { max-width: 100%; display: block; }
+    a { text-decoration: none; color: inherit; }
+    ul { list-style: none; }
+
+    .container {
+      max-width: 1180px;
+      margin: 0 auto;
+      padding: 0 var(--pad);
+    }
+
+    /* ── Scroll Reveal ─────────────────────────────────────── */
+    .reveal {
+      opacity: 0;
+      transform: translateY(28px);
+      transition: opacity 0.65s var(--ease), transform 0.65s var(--ease);
+    }
+    .reveal.visible { opacity: 1; transform: translateY(0); }
+    .reveal-left {
+      opacity: 0;
+      transform: translateX(-40px);
+      transition: opacity 0.7s var(--ease), transform 0.7s var(--ease);
+    }
+    .reveal-left.visible { opacity: 1; transform: translateX(0); }
+    .reveal-right {
+      opacity: 0;
+      transform: translateX(40px);
+      transition: opacity 0.7s var(--ease), transform 0.7s var(--ease);
+    }
+    .reveal-right.visible { opacity: 1; transform: translateX(0); }
+    .delay-1 { transition-delay: 0.1s; }
+    .delay-2 { transition-delay: 0.2s; }
+    .delay-3 { transition-delay: 0.3s; }
+    .delay-4 { transition-delay: 0.4s; }
+    .delay-5 { transition-delay: 0.5s; }
+
+    /* ── Header / Nav ──────────────────────────────────────── */
+    header {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      height: var(--nav-h);
+      background: rgba(255,255,255,0.97);
+      backdrop-filter: blur(8px);
+      -webkit-backdrop-filter: blur(8px);
+      border-bottom: 1px solid var(--border);
+      z-index: 200;
+      display: flex;
+      align-items: center;
+      transition: height 0.3s var(--ease), box-shadow 0.3s var(--ease);
+    }
+    header.scrolled {
+      height: 60px;
+      box-shadow: 0 2px 20px rgba(0,91,152,0.1);
+    }
+    header .container {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      width: 100%;
+    }
+    .logo img {
+      height: 48px;
+      width: auto;
+      transition: height 0.3s var(--ease);
+    }
+    header.scrolled .logo img { height: 38px; }
+    nav {
+      display: flex;
+      align-items: center;
+      gap: 28px;
+    }
+    nav a {
+      font-family: var(--font-ui);
+      font-weight: 400;
+      font-size: 13px;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: var(--text);
+      transition: color 0.2s;
+      position: relative;
+    }
+    nav a::after {
+      content: '';
+      position: absolute;
+      bottom: -4px; left: 0;
+      width: 0; height: 2px;
+      background: var(--brand);
+      transition: width 0.25s var(--ease);
+    }
+    nav a:hover, nav a.active { color: var(--brand); }
+    nav a:hover::after, nav a.active::after { width: 100%; }
+    .nav-cta {
+      font-family: var(--font-ui) !important;
+      font-size: 13px !important;
+      font-weight: 700 !important;
+      text-transform: uppercase !important;
+      letter-spacing: 0.08em !important;
+      background: var(--brand) !important;
+      color: var(--white) !important;
+      padding: 10px 22px !important;
+      border-radius: var(--radius) !important;
+      transition: background 0.2s, transform 0.15s !important;
+    }
+    .nav-cta::after { display: none !important; }
+    .nav-cta:hover {
+      background: var(--accent) !important;
+      transform: translateY(-1px) !important;
+      color: var(--white) !important;
+    }
+    .hamburger {
+      display: none;
+      flex-direction: column;
+      gap: 5px;
+      cursor: pointer;
+      padding: 6px;
+      background: none;
+      border: none;
+    }
+    .hamburger span {
+      display: block;
+      width: 24px; height: 2px;
+      background: var(--brand);
+      border-radius: 2px;
+      transition: 0.3s;
+    }
+    .hamburger.open span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+    .hamburger.open span:nth-child(2) { opacity: 0; }
+    .hamburger.open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+    .mobile-nav {
+      display: none;
+      position: fixed;
+      top: var(--nav-h);
+      left: 0; right: 0;
+      background: #fff;
+      padding: 20px var(--pad);
+      border-bottom: 1px solid var(--border);
+      box-shadow: var(--shadow-md);
+      z-index: 199;
+      flex-direction: column;
+      gap: 16px;
+    }
+    .mobile-nav.open { display: flex; }
+    .mobile-nav a {
+      font-family: var(--font-ui);
+      font-size: 15px;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      color: var(--text);
+      padding: 8px 0;
+      border-bottom: 1px solid var(--border);
+    }
+    .mobile-nav a:last-child { border-bottom: none; }
+    .mobile-nav a:hover { color: var(--brand); }
+
+    /* ── Hero ──────────────────────────────────────────────── */
+    #hero {
+      padding-top: var(--nav-h);
+      min-height: 420px;
+      background: linear-gradient(135deg, var(--brand-dark) 0%, var(--brand) 55%, #0478b8 100%);
+      position: relative;
+      overflow: hidden;
+      display: flex;
+      align-items: center;
+    }
+    #hero::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background:
+        radial-gradient(ellipse 70% 60% at 80% 30%, rgba(7,176,245,0.22) 0%, transparent 60%),
+        radial-gradient(ellipse 50% 70% at 10% 80%, rgba(0,40,80,0.4) 0%, transparent 70%);
+    }
+    #hero::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200'%3E%3Cfilter id='grain'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23grain)' opacity='0.04'/%3E%3C/svg%3E");
+      opacity: 0.6;
+    }
+    .hero-decorative-circle {
+      position: absolute;
+      border-radius: 50%;
+      pointer-events: none;
+    }
+    .hero-circ-1 {
+      width: 500px; height: 500px;
+      top: -150px; right: -100px;
+      background: radial-gradient(circle, rgba(255,255,255,0.06) 0%, transparent 70%);
+      border: 1px solid rgba(255,255,255,0.08);
+    }
+    .hero-circ-2 {
+      width: 240px; height: 240px;
+      bottom: -60px; left: 15%;
+      background: radial-gradient(circle, rgba(7,176,245,0.1) 0%, transparent 70%);
+      border: 1px solid rgba(7,176,245,0.1);
+    }
+    .hero-inner {
+      position: relative;
+      z-index: 2;
+      padding: 80px 0 70px;
+      width: 100%;
+      text-align: center;
+    }
+    .hero-breadcrumb {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      font-family: var(--font-ui);
+      font-size: 12px;
+      font-weight: 400;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.55);
+      margin-bottom: 24px;
+    }
+    .hero-breadcrumb span { color: rgba(255,255,255,0.85); }
+    .hero-eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      font-family: var(--font-ui);
+      font-size: 11px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.2em;
+      color: var(--accent);
+      background: rgba(7,176,245,0.15);
+      border: 1px solid rgba(7,176,245,0.3);
+      padding: 8px 18px;
+      border-radius: 50px;
+      margin-bottom: 22px;
+    }
+    .hero-eyebrow::before {
+      content: '';
+      width: 6px; height: 6px;
+      border-radius: 50%;
+      background: var(--accent);
+    }
+    .hero-title {
+      font-family: var(--font-display);
+      font-size: clamp(32px, 5vw, 58px);
+      font-weight: 700;
+      color: #fff;
+      line-height: 1.12;
+      letter-spacing: -0.03em;
+      margin-bottom: 18px;
+    }
+    .hero-title em {
+      font-style: italic;
+      color: var(--accent);
+    }
+    .hero-subtitle {
+      font-family: var(--font-body);
+      font-size: 17px;
+      color: rgba(255,255,255,0.75);
+      line-height: 1.7;
+      max-width: 560px;
+      margin: 0 auto;
+    }
+
+    /* ── Category Tabs ──────────────────────────────────────── */
+    #faq-main {
+      padding: 80px 0 60px;
+    }
+    .faq-layout {
+      display: grid;
+      grid-template-columns: 240px 1fr;
+      gap: 48px;
+      align-items: start;
+    }
+    .faq-sidebar {
+      position: sticky;
+      top: calc(var(--nav-h) + 24px);
+    }
+    .faq-sidebar-label {
+      font-family: var(--font-ui);
+      font-size: 10px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.18em;
+      color: var(--text-light);
+      margin-bottom: 12px;
+    }
+    .faq-cat-list {
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+    }
+    .faq-cat-btn {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-family: var(--font-ui);
+      font-size: 13px;
+      font-weight: 400;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      color: var(--text-light);
+      background: transparent;
+      border: none;
+      cursor: pointer;
+      padding: 10px 14px;
+      border-radius: 8px;
+      transition: background 0.2s, color 0.2s;
+      text-align: left;
+      width: 100%;
+    }
+    .faq-cat-btn:hover {
+      background: rgba(0,91,152,0.06);
+      color: var(--brand);
+    }
+    .faq-cat-btn.active {
+      background: rgba(0,91,152,0.08);
+      color: var(--brand);
+      font-weight: 700;
+    }
+    .faq-cat-dot {
+      width: 8px; height: 8px;
+      border-radius: 50%;
+      background: var(--border);
+      flex-shrink: 0;
+      transition: background 0.2s;
+    }
+    .faq-cat-btn.active .faq-cat-dot,
+    .faq-cat-btn:hover .faq-cat-dot {
+      background: var(--accent);
+    }
+    .faq-count-badge {
+      margin-left: auto;
+      font-family: var(--font-ui);
+      font-size: 11px;
+      font-weight: 700;
+      color: var(--text-light);
+      background: var(--surface);
+      padding: 2px 8px;
+      border-radius: 50px;
+    }
+
+    /* ── FAQ Section ────────────────────────────────────────── */
+    .faq-section {
+      margin-bottom: 60px;
+    }
+    .faq-section:last-child { margin-bottom: 0; }
+    .faq-section-header {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      margin-bottom: 24px;
+      padding-bottom: 20px;
+      border-bottom: 2px solid var(--border);
+    }
+    .faq-section-icon {
+      width: 44px; height: 44px;
+      border-radius: 10px;
+      background: linear-gradient(135deg, rgba(0,91,152,0.1), rgba(7,176,245,0.15));
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+    }
+    .faq-section-icon svg {
+      width: 22px; height: 22px;
+      stroke: var(--brand);
+      fill: none;
+      stroke-width: 2;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+    }
+    .faq-section-title {
+      font-family: var(--font-display);
+      font-size: 22px;
+      font-weight: 700;
+      color: var(--text);
+      letter-spacing: -0.01em;
+    }
+
+    /* ── Accordion ──────────────────────────────────────────── */
+    .accordion-item {
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      margin-bottom: 10px;
+      overflow: hidden;
+      transition: box-shadow 0.25s var(--ease);
+    }
+    .accordion-item:hover {
+      box-shadow: var(--shadow-sm);
+    }
+    .accordion-item.open {
+      box-shadow: var(--shadow-md);
+      border-color: rgba(0,91,152,0.2);
+    }
+    .accordion-trigger {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      width: 100%;
+      background: #fff;
+      border: none;
+      cursor: pointer;
+      padding: 20px 24px;
+      text-align: left;
+      transition: background 0.2s;
+    }
+    .accordion-trigger:hover {
+      background: rgba(0,91,152,0.02);
+    }
+    .accordion-item.open .accordion-trigger {
+      background: rgba(0,91,152,0.03);
+    }
+    .accordion-question {
+      font-family: var(--font-body);
+      font-size: 16px;
+      font-weight: 700;
+      color: var(--text);
+      line-height: 1.4;
+      flex: 1;
+    }
+    .accordion-item.open .accordion-question {
+      color: var(--brand);
+    }
+    .accordion-icon {
+      width: 32px; height: 32px;
+      border-radius: 50%;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+      transition: background 0.2s, border-color 0.2s, transform 0.3s var(--ease);
+    }
+    .accordion-item.open .accordion-icon {
+      background: var(--brand);
+      border-color: var(--brand);
+      transform: rotate(45deg);
+    }
+    .accordion-icon svg {
+      width: 16px; height: 16px;
+      stroke: var(--text-light);
+      fill: none;
+      stroke-width: 2.5;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+      transition: stroke 0.2s;
+    }
+    .accordion-item.open .accordion-icon svg {
+      stroke: #fff;
+    }
+    .accordion-body {
+      max-height: 0;
+      overflow: hidden;
+      transition: max-height 0.4s cubic-bezier(0.4,0,0.2,1), padding 0.3s var(--ease);
+    }
+    .accordion-body.open {
+      max-height: 800px;
+    }
+    .accordion-answer {
+      padding: 0 24px 24px;
+      font-family: var(--font-body);
+      font-size: 15px;
+      line-height: 1.75;
+      color: var(--text-light);
+      border-top: 1px solid var(--border);
+      padding-top: 20px;
+    }
+    .accordion-answer p + p {
+      margin-top: 12px;
+    }
+    .accordion-answer ul {
+      list-style: none;
+      margin-top: 12px;
+    }
+    .accordion-answer ul li {
+      padding: 4px 0 4px 20px;
+      position: relative;
+    }
+    .accordion-answer ul li::before {
+      content: '';
+      position: absolute;
+      left: 4px; top: 50%;
+      transform: translateY(-50%);
+      width: 6px; height: 6px;
+      border-radius: 50%;
+      background: var(--accent);
+    }
+    .accordion-answer strong {
+      color: var(--text);
+      font-weight: 700;
+    }
+    .accordion-answer a {
+      color: var(--brand);
+      text-decoration: underline;
+      text-underline-offset: 3px;
+    }
+    .accordion-answer a:hover { color: var(--accent); }
+
+    /* ── Directions Map Card ─────────────────────────────────── */
+    #directions {
+      padding: 80px 0;
+      background: var(--surface);
+    }
+    .directions-header {
+      text-align: center;
+      max-width: 600px;
+      margin: 0 auto 52px;
+    }
+    .section-label {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      font-family: var(--font-ui);
+      font-size: 11px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.18em;
+      color: var(--accent);
+      margin-bottom: 14px;
+    }
+    .section-label::before {
+      content: '';
+      display: block;
+      width: 28px; height: 2px;
+      background: var(--accent);
+      border-radius: 2px;
+    }
+    .section-title {
+      font-family: var(--font-display);
+      font-size: clamp(26px, 3.5vw, 40px);
+      font-weight: 700;
+      color: var(--text);
+      line-height: 1.18;
+      letter-spacing: -0.025em;
+      margin-bottom: 14px;
+    }
+    .section-title em { font-style: italic; color: var(--brand); }
+    .section-body {
+      font-family: var(--font-body);
+      font-size: 16px;
+      line-height: 1.75;
+      color: var(--text-light);
+    }
+    .directions-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 32px;
+    }
+    .directions-card {
+      background: #fff;
+      border-radius: 16px;
+      padding: 36px;
+      border: 1px solid var(--border);
+      box-shadow: var(--shadow-sm);
+    }
+    .dir-card-header {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      margin-bottom: 24px;
+    }
+    .dir-icon {
+      width: 50px; height: 50px;
+      border-radius: 12px;
+      background: linear-gradient(135deg, var(--brand), var(--accent));
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+    }
+    .dir-icon svg {
+      width: 24px; height: 24px;
+      stroke: #fff;
+      fill: none;
+      stroke-width: 2;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+    }
+    .dir-card-title {
+      font-family: var(--font-display);
+      font-size: 20px;
+      font-weight: 700;
+      color: var(--text);
+    }
+    .dir-steps {
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+    .dir-step {
+      display: flex;
+      gap: 14px;
+      align-items: flex-start;
+    }
+    .dir-step-num {
+      width: 28px; height: 28px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, var(--brand), var(--accent));
+      color: #fff;
+      font-family: var(--font-ui);
+      font-size: 12px;
+      font-weight: 700;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+      margin-top: 2px;
+    }
+    .dir-step-text {
+      font-family: var(--font-body);
+      font-size: 15px;
+      line-height: 1.6;
+      color: var(--text-light);
+    }
+    .dir-step-text strong {
+      color: var(--text);
+      font-weight: 700;
+    }
+    .dir-highlight-box {
+      background: linear-gradient(135deg, rgba(0,91,152,0.05), rgba(7,176,245,0.07));
+      border: 1px solid rgba(0,91,152,0.12);
+      border-radius: 10px;
+      padding: 16px 18px;
+      margin-top: 20px;
+    }
+    .dir-highlight-box p {
+      font-family: var(--font-body);
+      font-size: 14px;
+      line-height: 1.6;
+      color: var(--text);
+    }
+    .dir-highlight-box strong {
+      color: var(--brand);
+    }
+    .contact-details-list {
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+    }
+    .contact-detail-row {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+    }
+    .cdr-icon {
+      width: 36px; height: 36px;
+      border-radius: 8px;
+      background: rgba(0,91,152,0.08);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+    }
+    .cdr-icon svg {
+      width: 16px; height: 16px;
+      stroke: var(--brand);
+      fill: none;
+      stroke-width: 2;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+    }
+    .cdr-text {
+      font-family: var(--font-body);
+      font-size: 15px;
+      color: var(--text);
+      line-height: 1.4;
+    }
+    .cdr-text small {
+      display: block;
+      font-size: 12px;
+      color: var(--text-light);
+      margin-top: 1px;
+    }
+    .hours-grid {
+      margin-top: 20px;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 8px;
+    }
+    .hours-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 8px 12px;
+      border-radius: 8px;
+      background: var(--surface);
+    }
+    .hours-row.today {
+      background: rgba(0,91,152,0.07);
+      border: 1px solid rgba(0,91,152,0.15);
+    }
+    .hours-day {
+      font-family: var(--font-ui);
+      font-size: 12px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      color: var(--text);
+    }
+    .hours-time {
+      font-family: var(--font-body);
+      font-size: 12px;
+      color: var(--text-light);
+    }
+    .hours-closed {
+      font-family: var(--font-body);
+      font-size: 12px;
+      color: #e05252;
+    }
+
+    /* ── CTA Band ──────────────────────────────────────────── */
+    #cta-band {
+      padding: 80px 0;
+      background: linear-gradient(135deg, var(--brand-dark) 0%, var(--brand) 100%);
+      position: relative;
+      overflow: hidden;
+      text-align: center;
+    }
+    #cta-band::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(ellipse 60% 80% at 80% 50%, rgba(7,176,245,0.18) 0%, transparent 60%);
+    }
+    #cta-band::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200'%3E%3Cfilter id='grain'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23grain)' opacity='0.04'/%3E%3C/svg%3E");
+      opacity: 0.5;
+    }
+    .cta-inner {
+      position: relative;
+      z-index: 2;
+    }
+    .cta-title {
+      font-family: var(--font-display);
+      font-size: clamp(26px, 3.5vw, 42px);
+      font-weight: 700;
+      color: #fff;
+      letter-spacing: -0.025em;
+      margin-bottom: 16px;
+    }
+    .cta-subtitle {
+      font-family: var(--font-body);
+      font-size: 17px;
+      color: rgba(255,255,255,0.72);
+      margin-bottom: 36px;
+      max-width: 520px;
+      margin-left: auto;
+      margin-right: auto;
+      line-height: 1.65;
+    }
+    .cta-buttons {
+      display: flex;
+      justify-content: center;
+      gap: 16px;
+      flex-wrap: wrap;
+    }
+    .btn-white {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      font-family: var(--font-ui);
+      font-size: 14px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: var(--brand);
+      background: #fff;
+      padding: 14px 32px;
+      border-radius: var(--radius);
+      box-shadow: 0 4px 20px rgba(0,0,0,0.15);
+      transition: transform 0.2s var(--ease), box-shadow 0.2s var(--ease);
+    }
+    .btn-white:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 30px rgba(0,0,0,0.2);
+    }
+    .btn-outline-white {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      font-family: var(--font-ui);
+      font-size: 14px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: #fff;
+      background: transparent;
+      padding: 14px 32px;
+      border-radius: var(--radius);
+      border: 2px solid rgba(255,255,255,0.4);
+      transition: background 0.2s, border-color 0.2s, transform 0.2s;
+    }
+    .btn-outline-white:hover {
+      background: rgba(255,255,255,0.1);
+      border-color: rgba(255,255,255,0.7);
+      transform: translateY(-2px);
+    }
+
+    /* ── Footer ────────────────────────────────────────────── */
+    footer {
+      background: #0a1929;
+      color: rgba(255,255,255,0.55);
+      padding: 48px 0;
+      text-align: center;
+    }
+    .footer-inner {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 16px;
+    }
+    .footer-logo img {
+      height: 40px;
+      width: auto;
+      opacity: 0.75;
+      filter: brightness(10);
+    }
+    .footer-tagline {
+      font-family: var(--font-body);
+      font-size: 14px;
+      color: rgba(255,255,255,0.45);
+    }
+    .footer-links {
+      display: flex;
+      gap: 24px;
+      flex-wrap: wrap;
+      justify-content: center;
+    }
+    .footer-links a {
+      font-family: var(--font-ui);
+      font-size: 12px;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: rgba(255,255,255,0.4);
+      transition: color 0.2s;
+    }
+    .footer-links a:hover { color: var(--accent); }
+    .footer-copyright {
+      font-family: var(--font-ui);
+      font-size: 12px;
+      color: rgba(255,255,255,0.25);
+    }
+    .footer-divider {
+      width: 60px; height: 1px;
+      background: rgba(255,255,255,0.1);
+    }
+
+    /* ── Responsive ────────────────────────────────────────── */
+    @media (max-width: 860px) {
+      .faq-layout { grid-template-columns: 1fr; }
+      .faq-sidebar { position: static; }
+      .faq-cat-list { flex-direction: row; flex-wrap: wrap; }
+      .directions-grid { grid-template-columns: 1fr; }
+      .hours-grid { grid-template-columns: 1fr; }
+    }
+    @media (max-width: 640px) {
+      nav { display: none; }
+      .hamburger { display: flex; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ── Header ──────────────────────────────────────────── -->
+  <header id="site-header">
+    <div class="container">
+      <a href="index.html" class="logo">
+        <img src="Brand_assests /Screenshot 2026-03-18 at 12.44.23.png" alt="Hands On Chiropractic" />
+      </a>
+      <nav id="main-nav">
+        <a href="index.html">Home</a>
+        <a href="index.html#services">Services</a>
+        <a href="about.html">About</a>
+        <a href="faq.html" class="active">FAQ</a>
+        <a href="index.html#contact">Contact</a>
+        <a href="index.html#cta" class="nav-cta">Book Now</a>
+      </nav>
+      <button class="hamburger" id="hamburger" aria-label="Menu">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </header>
+  <div class="mobile-nav" id="mobileNav">
+    <a href="index.html">Home</a>
+    <a href="index.html#services">Services</a>
+    <a href="about.html">About</a>
+    <a href="faq.html">FAQ</a>
+    <a href="index.html#contact">Contact</a>
+    <a href="index.html#cta" class="nav-cta" style="margin-top:8px;display:block;text-align:center;padding:12px 24px;">Book Now</a>
+  </div>
+
+  <!-- ── Hero ────────────────────────────────────────────── -->
+  <section id="hero">
+    <div class="hero-decorative-circle hero-circ-1"></div>
+    <div class="hero-decorative-circle hero-circ-2"></div>
+    <div class="container">
+      <div class="hero-inner">
+        <div class="hero-breadcrumb">
+          <a href="index.html" style="color:rgba(255,255,255,0.5);">Home</a>
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="opacity:0.4"><polyline points="9 18 15 12 9 6"/></svg>
+          <span>FAQ</span>
+        </div>
+        <div class="hero-eyebrow reveal">Common Questions</div>
+        <h1 class="hero-title reveal delay-1">
+          Frequently <em>Asked</em><br>Questions
+        </h1>
+        <p class="hero-subtitle reveal delay-2">
+          Everything you need to know about chiropractic care, our practice, and how to find us.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── FAQ Main ─────────────────────────────────────────── -->
+  <section id="faq-main">
+    <div class="container">
+      <div class="faq-layout">
+
+        <!-- Sidebar -->
+        <div class="faq-sidebar reveal">
+          <div class="faq-sidebar-label">Browse by category</div>
+          <div class="faq-cat-list">
+            <button class="faq-cat-btn active" data-target="about-chiro">
+              <span class="faq-cat-dot"></span>
+              About Chiropractic
+              <span class="faq-count-badge">6</span>
+            </button>
+            <button class="faq-cat-btn" data-target="first-visit">
+              <span class="faq-cat-dot"></span>
+              Your First Visit
+              <span class="faq-count-badge">4</span>
+            </button>
+            <button class="faq-cat-btn" data-target="treatment">
+              <span class="faq-cat-dot"></span>
+              Treatment & Care
+              <span class="faq-count-badge">5</span>
+            </button>
+            <button class="faq-cat-btn" data-target="costs">
+              <span class="faq-cat-dot"></span>
+              Costs & Rebates
+              <span class="faq-count-badge">3</span>
+            </button>
+            <button class="faq-cat-btn" data-target="location">
+              <span class="faq-cat-dot"></span>
+              Location & Hours
+              <span class="faq-count-badge">3</span>
+            </button>
+          </div>
+        </div>
+
+        <!-- FAQ Sections -->
+        <div class="faq-content">
+
+          <!-- About Chiropractic -->
+          <div class="faq-section reveal" id="about-chiro">
+            <div class="faq-section-header">
+              <div class="faq-section-icon">
+                <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+              </div>
+              <h2 class="faq-section-title">About Chiropractic</h2>
+            </div>
+
+            <div class="accordion-item reveal delay-1">
+              <button class="accordion-trigger" aria-expanded="false">
+                <span class="accordion-question">What is chiropractic care?</span>
+                <span class="accordion-icon"><svg viewBox="0 0 24 24"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></span>
+              </button>
+              <div class="accordion-body">
+                <div class="accordion-answer">
+                  <p>Chiropractic is a regulated health profession focused on the diagnosis, treatment, and prevention of disorders of the musculoskeletal system — particularly the spine — and their effects on the nervous system and overall health.</p>
+                  <p>Chiropractors use a range of hands-on techniques, most notably <strong>spinal manipulation (adjustment)</strong>, to restore proper alignment, reduce pain, and improve function. The underlying principle is that proper spinal alignment allows the nervous system to communicate freely between the brain and body, supporting the body's natural ability to heal.</p>
+                </div>
+              </div>
+            </div>
+
+            <div class="accordion-item reveal delay-2">
+              <button class="accordion-trigger" aria-expanded="false">
+                <span class="accordion-question">Is chiropractic safe?</span>
+                <span class="accordion-icon"><svg viewBox="0 0 24 24"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></span>
+              </button>
+              <div class="accordion-body">
+                <div class="accordion-answer">
+                  <p>Yes. Chiropractic is widely recognised as one of the safest non-invasive, drug-free therapies available for neuromusculoskeletal complaints. Serious adverse events are extremely rare.</p>
+                  <p>Some patients experience mild soreness or stiffness in the first 24–48 hours after an adjustment — similar to the feeling after starting a new exercise regime. Dr. Cho will always perform a thorough assessment before any treatment to ensure it is appropriate for your individual situation.</p>
+                </div>
+              </div>
+            </div>
+
+            <div class="accordion-item reveal delay-3">
+              <button class="accordion-trigger" aria-expanded="false">
+                <span class="accordion-question">What conditions can chiropractic help with?</span>
+                <span class="accordion-icon"><svg viewBox="0 0 24 24"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></span>
+              </button>
+              <div class="accordion-body">
+                <div class="accordion-answer">
+                  <p>Chiropractic care is most well-known for treating:</p>
+                  <ul>
+                    <li>Lower back pain and sciatica</li>
+                    <li>Neck pain and stiffness</li>
+                    <li>Headaches and migraines</li>
+                    <li>Shoulder, knee, hip and elbow complaints</li>
+                    <li>Sports injuries and strains</li>
+                    <li>Posture-related pain from desk work</li>
+                    <li>Scoliosis management</li>
+                    <li>Pregnancy-related back pain</li>
+                  </ul>
+                  <p>Beyond pain relief, many patients seek ongoing wellness care to maintain spinal health, improve posture, and support their overall wellbeing.</p>
+                </div>
+              </div>
+            </div>
+
+            <div class="accordion-item reveal delay-4">
+              <button class="accordion-trigger" aria-expanded="false">
+                <span class="accordion-question">Does chiropractic hurt?</span>
+                <span class="accordion-icon"><svg viewBox="0 0 24 24"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></span>
+              </button>
+              <div class="accordion-body">
+                <div class="accordion-answer">
+                  <p>Most people find chiropractic adjustments comfortable and even relieving. You may hear a "popping" or "clicking" sound — this is simply gas being released from the joint, similar to cracking your knuckles, and is completely harmless.</p>
+                  <p>If you are nervous or in significant pain, Dr. Cho can use gentler, low-force techniques that are just as effective without the classic adjustment sensation. Your comfort is always the priority.</p>
+                </div>
+              </div>
+            </div>
+
+            <div class="accordion-item reveal delay-5">
+              <button class="accordion-trigger" aria-expanded="false">
+                <span class="accordion-question">Is chiropractic safe for children and babies?</span>
+                <span class="accordion-icon"><svg viewBox="0 0 24 24"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></span>
+              </button>
+              <div class="accordion-body">
+                <div class="accordion-answer">
+                  <p>Yes. Chiropractic care for infants and children is very gentle — adjustments use only light fingertip pressure, nothing like the techniques used for adults. Many parents bring their babies in for checks after birth due to stresses from delivery.</p>
+                  <p>Children can benefit from chiropractic care for conditions including <strong>colic, feeding difficulties, sleeping issues, growing pains, scoliosis, and sports injuries</strong>. Dr. Cho has experience working with patients of all ages.</p>
+                </div>
+              </div>
+            </div>
+
+            <div class="accordion-item reveal delay-5">
+              <button class="accordion-trigger" aria-expanded="false">
+                <span class="accordion-question">How is chiropractic different from physiotherapy?</span>
+                <span class="accordion-icon"><svg viewBox="0 0 24 24"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></span>
+              </button>
+              <div class="accordion-body">
+                <div class="accordion-answer">
+                  <p>Both are evidence-based health professions focused on musculoskeletal health, and there is significant overlap. The main distinctions are:</p>
+                  <ul>
+                    <li><strong>Chiropractic</strong> has a primary focus on spinal alignment and nervous system function, using spinal adjustments as a central tool.</li>
+                    <li><strong>Physiotherapy</strong> tends to focus more on rehabilitation exercises and movement re-education.</li>
+                  </ul>
+                  <p>At Hands On Chiropractic, Dr. Cho combines both worlds — integrating chiropractic adjustments with therapeutic exercise and soft tissue work for comprehensive care.</p>
+                </div>
+              </div>
+            </div>
+
+          </div>
+
+          <!-- First Visit -->
+          <div class="faq-section reveal" id="first-visit">
+            <div class="faq-section-header">
+              <div class="faq-section-icon">
+                <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+              </div>
+              <h2 class="faq-section-title">Your First Visit</h2>
+            </div>
+
+            <div class="accordion-item reveal delay-1">
+              <button class="accordion-trigger" aria-expanded="false">
+                <span class="accordion-question">What happens on my first appointment?</span>
+                <span class="accordion-icon"><svg viewBox="0 0 24 24"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></span>
+              </button>
+              <div class="accordion-body">
+                <div class="accordion-answer">
+                  <p>Your first visit typically includes:</p>
+                  <ul>
+                    <li><strong>A detailed health history</strong> — discussing your current concern, past injuries, lifestyle, and health goals</li>
+                    <li><strong>A physical examination</strong> — postural assessment, range of motion testing, orthopaedic and neurological tests</li>
+                    <li><strong>Diagnosis and explanation</strong> — Dr. Cho will explain what he finds in plain language</li>
+                    <li><strong>A personalised care plan</strong> — outlining recommended treatment and expected outcomes</li>
+                    <li><strong>Initial treatment</strong> — if appropriate on the same visit</li>
+                  </ul>
+                  <p>Allow approximately 45–60 minutes for your first appointment.</p>
+                </div>
+              </div>
+            </div>
+
+            <div class="accordion-item reveal delay-2">
+              <button class="accordion-trigger" aria-expanded="false">
+                <span class="accordion-question">Do I need a referral to see a chiropractor?</span>
+                <span class="accordion-icon"><svg viewBox="0 0 24 24"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></span>
+              </button>
+              <div class="accordion-body">
+                <div class="accordion-answer">
+                  <p>No referral is needed. You can book directly with us by phone or in person. Chiropractors are primary contact practitioners — you don't need to see a GP first.</p>
+                  <p>If you have a GP Management Plan (GPMP) or Team Care Arrangement (TCA), you may be eligible for Medicare rebates for allied health services — ask Dr. Cho or your GP about this.</p>
+                </div>
+              </div>
+            </div>
+
+            <div class="accordion-item reveal delay-3">
+              <button class="accordion-trigger" aria-expanded="false">
+                <span class="accordion-question">What should I bring or wear?</span>
+                <span class="accordion-icon"><svg viewBox="0 0 24 24"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></span>
+              </button>
+              <div class="accordion-body">
+                <div class="accordion-answer">
+                  <p>Wear loose, comfortable clothing that allows easy movement — gym wear or shorts and a t-shirt are ideal. You may be asked to remove your shoes for the examination.</p>
+                  <p>Please bring any relevant imaging you have (X-rays, MRI reports, or scans), and a list of current medications if applicable. Arriving 5–10 minutes early to complete a brief health form is helpful.</p>
+                </div>
+              </div>
+            </div>
+
+            <div class="accordion-item reveal delay-4">
+              <button class="accordion-trigger" aria-expanded="false">
+                <span class="accordion-question">How many visits will I need?</span>
+                <span class="accordion-icon"><svg viewBox="0 0 24 24"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></span>
+              </button>
+              <div class="accordion-body">
+                <div class="accordion-answer">
+                  <p>This depends on your specific condition, its severity, and how long it has been present. Acute complaints (e.g. recent back sprain) may resolve in just a few visits. Chronic or long-standing conditions typically require a longer course of care.</p>
+                  <p>After your initial assessment, Dr. Cho will give you a clear recommendation with an estimated number of visits and expected progress milestones. There is no pressure to commit to extended care — your treatment is always your choice.</p>
+                </div>
+              </div>
+            </div>
+
+          </div>
+
+          <!-- Treatment & Care -->
+          <div class="faq-section reveal" id="treatment">
+            <div class="faq-section-header">
+              <div class="faq-section-icon">
+                <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+              </div>
+              <h2 class="faq-section-title">Treatment &amp; Care</h2>
+            </div>
+
+            <div class="accordion-item reveal delay-1">
+              <button class="accordion-trigger" aria-expanded="false">
+                <span class="accordion-question">What techniques does Dr. Cho use?</span>
+                <span class="accordion-icon"><svg viewBox="0 0 24 24"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></span>
+              </button>
+              <div class="accordion-body">
+                <div class="accordion-answer">
+                  <p>Dr. Cho uses a range of evidence-based techniques tailored to each patient:</p>
+                  <ul>
+                    <li><strong>Diversified adjustment</strong> — the classic manual spinal manipulation</li>
+                    <li><strong>Activator method</strong> — a low-force instrument-assisted technique, great for nervous patients or gentle care</li>
+                    <li><strong>Gonstead technique</strong> — specific, precise adjustments targeting individual vertebrae</li>
+                    <li><strong>Soft tissue therapy and myofascial release</strong></li>
+                    <li><strong>Dry needling</strong></li>
+                    <li><strong>Therapeutic exercise and rehabilitation</strong></li>
+                    <li><strong>Lifestyle and ergonomic advice</strong></li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+
+            <div class="accordion-item reveal delay-2">
+              <button class="accordion-trigger" aria-expanded="false">
+                <span class="accordion-question">Can I get chiropractic care during pregnancy?</span>
+                <span class="accordion-icon"><svg viewBox="0 0 24 24"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></span>
+              </button>
+              <div class="accordion-body">
+                <div class="accordion-answer">
+                  <p>Yes — chiropractic care during pregnancy is safe and can be very beneficial. As your body adapts to pregnancy, significant changes in posture, pelvis, and weight distribution can cause discomfort. Dr. Cho uses modified techniques and positioning to ensure complete comfort for mum and baby.</p>
+                  <p>Many pregnant patients find relief from <strong>lower back pain, pelvic girdle pain, sciatica, and round ligament discomfort</strong> through chiropractic care.</p>
+                </div>
+              </div>
+            </div>
+
+            <div class="accordion-item reveal delay-3">
+              <button class="accordion-trigger" aria-expanded="false">
+                <span class="accordion-question">Once I start, do I have to keep coming forever?</span>
+                <span class="accordion-icon"><svg viewBox="0 0 24 24"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></span>
+              </button>
+              <div class="accordion-body">
+                <div class="accordion-answer">
+                  <p>Absolutely not. How often and for how long you receive chiropractic care is entirely up to you. Dr. Cho will never pressure you into ongoing treatment.</p>
+                  <p>That said, just like visiting the dentist for check-ups or going to the gym regularly, some patients choose to continue with periodic <strong>wellness visits</strong> to maintain spinal health and prevent future problems — but this is a personal choice, not a requirement.</p>
+                </div>
+              </div>
+            </div>
+
+            <div class="accordion-item reveal delay-4">
+              <button class="accordion-trigger" aria-expanded="false">
+                <span class="accordion-question">What should I do (or avoid) after an adjustment?</span>
+                <span class="accordion-icon"><svg viewBox="0 0 24 24"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></span>
+              </button>
+              <div class="accordion-body">
+                <div class="accordion-answer">
+                  <p>After an adjustment, Dr. Cho may recommend:</p>
+                  <ul>
+                    <li><strong>Drink plenty of water</strong> to help flush toxins and reduce any mild soreness</li>
+                    <li><strong>Stay gently active</strong> — light walking is beneficial; avoid intense exercise for the rest of the day</li>
+                    <li><strong>Apply ice or heat</strong> as directed if there is any localised soreness</li>
+                    <li><strong>Avoid prolonged sitting</strong> — take regular movement breaks</li>
+                  </ul>
+                  <p>Any mild soreness typically resolves within 24–48 hours. If you have significant or unusual discomfort, call the practice.</p>
+                </div>
+              </div>
+            </div>
+
+            <div class="accordion-item reveal delay-5">
+              <button class="accordion-trigger" aria-expanded="false">
+                <span class="accordion-question">Can chiropractic help with headaches?</span>
+                <span class="accordion-icon"><svg viewBox="0 0 24 24"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></span>
+              </button>
+              <div class="accordion-body">
+                <div class="accordion-answer">
+                  <p>Yes — chiropractic care has strong evidence for treating <strong>tension-type headaches and cervicogenic headaches</strong> (headaches originating from the neck). These are among the most common types of recurring headaches.</p>
+                  <p>If your headaches stem from neck stiffness, poor posture, or spinal dysfunction, adjustments to the cervical and upper thoracic spine can dramatically reduce their frequency and intensity. Dr. Cho will assess whether your headaches are appropriate for chiropractic management.</p>
+                </div>
+              </div>
+            </div>
+
+          </div>
+
+          <!-- Costs & Rebates -->
+          <div class="faq-section reveal" id="costs">
+            <div class="faq-section-header">
+              <div class="faq-section-icon">
+                <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>
+              </div>
+              <h2 class="faq-section-title">Costs &amp; Rebates</h2>
+            </div>
+
+            <div class="accordion-item reveal delay-1">
+              <button class="accordion-trigger" aria-expanded="false">
+                <span class="accordion-question">Is chiropractic covered by private health insurance?</span>
+                <span class="accordion-icon"><svg viewBox="0 0 24 24"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></span>
+              </button>
+              <div class="accordion-body">
+                <div class="accordion-answer">
+                  <p>Yes — chiropractic is covered under <strong>extras (ancillary) cover</strong> with most private health funds in Australia, including Medibank, Bupa, HCF, NIB, and others. The rebate amount depends on your specific policy and level of cover.</p>
+                  <p>We accept HICAPS in the clinic, so you can claim your rebate on the spot and only pay the gap. Bring your health fund card to each appointment.</p>
+                </div>
+              </div>
+            </div>
+
+            <div class="accordion-item reveal delay-2">
+              <button class="accordion-trigger" aria-expanded="false">
+                <span class="accordion-question">Can I claim through Medicare?</span>
+                <span class="accordion-icon"><svg viewBox="0 0 24 24"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></span>
+              </button>
+              <div class="accordion-body">
+                <div class="accordion-answer">
+                  <p>Chiropractic is not covered under standard Medicare. However, if your GP has referred you with a <strong>Chronic Disease Management Plan (formerly EPC)</strong>, you may be entitled to a partial Medicare rebate for up to 5 allied health visits per calendar year.</p>
+                  <p>Speak to your GP about whether you qualify, or call our practice and we'll be happy to assist.</p>
+                </div>
+              </div>
+            </div>
+
+            <div class="accordion-item reveal delay-3">
+              <button class="accordion-trigger" aria-expanded="false">
+                <span class="accordion-question">Do you accept WorkCover or DVA patients?</span>
+                <span class="accordion-icon"><svg viewBox="0 0 24 24"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></span>
+              </button>
+              <div class="accordion-body">
+                <div class="accordion-answer">
+                  <p>Yes, we accept WorkCover (workers compensation) and DVA (Department of Veterans' Affairs) patients. Please bring your claim number or DVA card to your first appointment so we can process your billing correctly.</p>
+                  <p>For WorkCover, you will need a referral from your treating GP. Call us on <a href="tel:+61249733889">(02) 4973 3889</a> if you have questions before booking.</p>
+                </div>
+              </div>
+            </div>
+
+          </div>
+
+          <!-- Location & Hours -->
+          <div class="faq-section reveal" id="location">
+            <div class="faq-section-header">
+              <div class="faq-section-icon">
+                <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+              </div>
+              <h2 class="faq-section-title">Location &amp; Hours</h2>
+            </div>
+
+            <div class="accordion-item reveal delay-1">
+              <button class="accordion-trigger" aria-expanded="false">
+                <span class="accordion-question">Where are you located and what are your opening hours?</span>
+                <span class="accordion-icon"><svg viewBox="0 0 24 24"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></span>
+              </button>
+              <div class="accordion-body">
+                <div class="accordion-answer">
+                  <p>We are located at <strong>272a Freemans Drive, Cooranbong NSW 2265</strong>.</p>
+                  <p>Our opening hours are:</p>
+                  <ul>
+                    <li><strong>Monday – Thursday:</strong> 8:00am – 7:00pm</li>
+                    <li><strong>Friday:</strong> 8:00am – 1:00pm</li>
+                    <li><strong>Saturday:</strong> Closed</li>
+                    <li><strong>Sunday:</strong> 9:00am – 1:00pm</li>
+                  </ul>
+                  <p>To book an appointment call us on <a href="tel:+61249733889">(02) 4973 3889</a> or email <a href="mailto:handsonchirocenter@gmail.com">handsonchirocenter@gmail.com</a>.</p>
+                </div>
+              </div>
+            </div>
+
+            <div class="accordion-item reveal delay-2">
+              <button class="accordion-trigger" aria-expanded="false">
+                <span class="accordion-question">How do I find the practice — any parking or directions?</span>
+                <span class="accordion-icon"><svg viewBox="0 0 24 24"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></span>
+              </button>
+              <div class="accordion-body">
+                <div class="accordion-answer">
+                  <p>We're easy to find once you know the trick! Here's how to get here:</p>
+                  <ul>
+                    <li>Head to <strong>Freemans Drive</strong> in Cooranbong</li>
+                    <li>Turn into <strong>Victory Street</strong> off Freemans Drive</li>
+                    <li>Take the <strong>second driveway</strong> on Victory Street — that's us!</li>
+                  </ul>
+                  <p>There is parking available on site. If you get lost, give us a call on <a href="tel:+61249733889">(02) 4973 3889</a> and we'll help guide you in.</p>
+                </div>
+              </div>
+            </div>
+
+            <div class="accordion-item reveal delay-3">
+              <button class="accordion-trigger" aria-expanded="false">
+                <span class="accordion-question">How do I book an appointment?</span>
+                <span class="accordion-icon"><svg viewBox="0 0 24 24"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></span>
+              </button>
+              <div class="accordion-body">
+                <div class="accordion-answer">
+                  <p>You can book an appointment in any of the following ways:</p>
+                  <ul>
+                    <li><strong>Phone:</strong> <a href="tel:+61249733889">(02) 4973 3889</a></li>
+                    <li><strong>Email:</strong> <a href="mailto:handsonchirocenter@gmail.com">handsonchirocenter@gmail.com</a></li>
+                    <li><strong>In person:</strong> pop in during opening hours</li>
+                  </ul>
+                  <p>For your first appointment, please allow 45–60 minutes. Follow-up appointments are typically 20–30 minutes. We look forward to seeing you!</p>
+                </div>
+              </div>
+            </div>
+
+          </div>
+
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── Directions ────────────────────────────────────────── -->
+  <section id="directions">
+    <div class="container">
+      <div class="directions-header">
+        <div class="section-label reveal">Find Us</div>
+        <h2 class="section-title reveal delay-1">Getting Here is <em>Easy</em></h2>
+        <p class="section-body reveal delay-2">Located in Cooranbong, we're conveniently accessible from the broader Lake Macquarie region.</p>
+      </div>
+      <div class="directions-grid">
+
+        <div class="directions-card reveal-left">
+          <div class="dir-card-header">
+            <div class="dir-icon">
+              <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><polygon points="3 11 22 2 13 21 11 13 3 11"/></svg>
+            </div>
+            <h3 class="dir-card-title">Step-by-Step Directions</h3>
+          </div>
+          <div class="dir-steps">
+            <div class="dir-step">
+              <div class="dir-step-num">1</div>
+              <div class="dir-step-text">Head to <strong>Freemans Drive</strong> in Cooranbong NSW 2265. This is the main road through our area.</div>
+            </div>
+            <div class="dir-step">
+              <div class="dir-step-num">2</div>
+              <div class="dir-step-text">Turn into <strong>Victory Street</strong> off Freemans Drive — look for the street sign on your left or right depending on your direction of travel.</div>
+            </div>
+            <div class="dir-step">
+              <div class="dir-step-num">3</div>
+              <div class="dir-step-text">Take the <strong>second driveway</strong> on Victory Street. This is Hands On Chiropractic Centre — <strong>272a Freemans Drive</strong>.</div>
+            </div>
+            <div class="dir-step">
+              <div class="dir-step-num">4</div>
+              <div class="dir-step-text"><strong>On-site parking</strong> is available. If you're unsure, call us on <a href="tel:+61249733889" style="color:var(--brand)">(02) 4973 3889</a> and we'll guide you in.</div>
+            </div>
+          </div>
+          <div class="dir-highlight-box">
+            <p><strong>Tip:</strong> Enter "Hands On Chiropractic Cooranbong" into Google Maps or Apple Maps for turn-by-turn navigation directly to our practice.</p>
+          </div>
+        </div>
+
+        <div class="directions-card reveal-right">
+          <div class="dir-card-header">
+            <div class="dir-icon">
+              <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+            </div>
+            <h3 class="dir-card-title">Contact &amp; Hours</h3>
+          </div>
+          <div class="contact-details-list">
+            <div class="contact-detail-row">
+              <div class="cdr-icon">
+                <svg viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+              </div>
+              <div class="cdr-text">
+                272a Freemans Drive
+                <small>Cooranbong NSW 2265</small>
+              </div>
+            </div>
+            <div class="contact-detail-row">
+              <div class="cdr-icon">
+                <svg viewBox="0 0 24 24"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.72 12.5a19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 3.63 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l.81-.81a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+              </div>
+              <div class="cdr-text">
+                <a href="tel:+61249733889" style="color:inherit">(02) 4973 3889</a>
+                <small>Call to book</small>
+              </div>
+            </div>
+            <div class="contact-detail-row">
+              <div class="cdr-icon">
+                <svg viewBox="0 0 24 24"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+              </div>
+              <div class="cdr-text">
+                <a href="mailto:handsonchirocenter@gmail.com" style="color:inherit">handsonchirocenter@gmail.com</a>
+                <small>Email enquiries</small>
+              </div>
+            </div>
+          </div>
+          <div class="hours-grid">
+            <div class="hours-row">
+              <span class="hours-day">Mon–Thu</span>
+              <span class="hours-time">8:00am – 7:00pm</span>
+            </div>
+            <div class="hours-row">
+              <span class="hours-day">Friday</span>
+              <span class="hours-time">8:00am – 1:00pm</span>
+            </div>
+            <div class="hours-row">
+              <span class="hours-day">Saturday</span>
+              <span class="hours-closed">Closed</span>
+            </div>
+            <div class="hours-row">
+              <span class="hours-day">Sunday</span>
+              <span class="hours-time">9:00am – 1:00pm</span>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ── CTA Band ──────────────────────────────────────────── -->
+  <section id="cta-band">
+    <div class="container">
+      <div class="cta-inner">
+        <h2 class="cta-title reveal">Still Have Questions?</h2>
+        <p class="cta-subtitle reveal delay-1">We're happy to chat. Call us, email us, or just drop in during opening hours.</p>
+        <div class="cta-buttons reveal delay-2">
+          <a href="tel:+61249733889" class="btn-white">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.72 12.5a19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 3.63 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l.81-.81a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+            Call Us Now
+          </a>
+          <a href="about.html" class="btn-outline-white">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/></svg>
+            Meet Dr. Cho
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── Footer ────────────────────────────────────────────── -->
+  <footer>
+    <div class="container">
+      <div class="footer-inner">
+        <div class="footer-logo">
+          <img src="Brand_assests /Screenshot 2026-03-18 at 12.44.23.png" alt="Hands On Chiropractic" />
+        </div>
+        <p class="footer-tagline">272a Freemans Drive, Cooranbong NSW 2265 &nbsp;|&nbsp; (02) 4973 3889</p>
+        <div class="footer-divider"></div>
+        <div class="footer-links">
+          <a href="index.html">Home</a>
+          <a href="about.html">About</a>
+          <a href="faq.html">FAQ</a>
+          <a href="index.html#contact">Contact</a>
+          <a href="#">Privacy Policy</a>
+        </div>
+        <p class="footer-copyright">&copy; 2025 Hands On Chiropractic Centre. All rights reserved.</p>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    // ── Header scroll ─────────────────────────────────────────
+    (function() {
+      var header = document.getElementById('site-header');
+      window.addEventListener('scroll', function() {
+        if (window.scrollY > 30) {
+          header.classList.add('scrolled');
+        } else {
+          header.classList.remove('scrolled');
+        }
+      });
+    })();
+
+    // ── Hamburger ─────────────────────────────────────────────
+    (function() {
+      var btn = document.getElementById('hamburger');
+      var nav = document.getElementById('mobileNav');
+      btn.addEventListener('click', function() {
+        btn.classList.toggle('open');
+        nav.classList.toggle('open');
+      });
+    })();
+
+    // ── Scroll Reveal ─────────────────────────────────────────
+    (function() {
+      var els = document.querySelectorAll('.reveal, .reveal-left, .reveal-right');
+      if (!('IntersectionObserver' in window)) {
+        els.forEach(function(el) { el.classList.add('visible'); });
+        return;
+      }
+      var observer = new IntersectionObserver(function(entries) {
+        entries.forEach(function(entry) {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('visible');
+            observer.unobserve(entry.target);
+          }
+        });
+      }, { threshold: 0.08 });
+      els.forEach(function(el) { observer.observe(el); });
+    })();
+
+    // ── Accordion ─────────────────────────────────────────────
+    (function() {
+      document.querySelectorAll('.accordion-trigger').forEach(function(trigger) {
+        trigger.addEventListener('click', function() {
+          var item = trigger.closest('.accordion-item');
+          var body = item.querySelector('.accordion-body');
+          var isOpen = item.classList.contains('open');
+
+          // Close all open items
+          document.querySelectorAll('.accordion-item.open').forEach(function(openItem) {
+            openItem.classList.remove('open');
+            openItem.querySelector('.accordion-body').classList.remove('open');
+            openItem.querySelector('.accordion-trigger').setAttribute('aria-expanded', 'false');
+          });
+
+          // Open clicked item if it was closed
+          if (!isOpen) {
+            item.classList.add('open');
+            body.classList.add('open');
+            trigger.setAttribute('aria-expanded', 'true');
+          }
+        });
+      });
+    })();
+
+    // ── FAQ Category Sidebar Scroll ───────────────────────────
+    (function() {
+      document.querySelectorAll('.faq-cat-btn').forEach(function(btn) {
+        btn.addEventListener('click', function() {
+          document.querySelectorAll('.faq-cat-btn').forEach(function(b) { b.classList.remove('active'); });
+          btn.classList.add('active');
+          var target = document.getElementById(btn.getAttribute('data-target'));
+          if (target) {
+            var offset = 100;
+            var top = target.getBoundingClientRect().top + window.scrollY - offset;
+            window.scrollTo({ top: top, behavior: 'smooth' });
+          }
+        });
+      });
+    })();
+  </script>
+</body>
+</html>
